@@ -24,7 +24,10 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::resource('/trainroute','TrainRouteController');
   Route::resource('/banner','BannerController');
   Route::resource('/menu','MenuController');
-
+  Route::resource('/role','RoleController');
+  Route::get('/role/edit/{id}','RoleController@edit');
+  Route::resource('/sidebar','SidebarMenuController');
+  Route::get('/sidebar/remove/{id}','SidebarMenuController@destroy');
 });
 
 Auth::routes();
