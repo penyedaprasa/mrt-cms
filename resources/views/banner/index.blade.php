@@ -9,8 +9,9 @@
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">Application</li>
+                        <li class="breadcrumb-item">Banner</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Banner</a>
+                            <a class="link-fx" href="{{route('banner.create')}}">Create</a>
                         </li>
                     </ol>
                 </nav>
