@@ -18,7 +18,6 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/profile','DashboardController@profile')->name('dashboard.profile');
   Route::get('/setting','DashboardController@setting')->name('dashboard.setting');
   Route::get('/account_lock','DashboardController@account_lock')->name('dashboard.account_lock');
-
   Route::resource('/train','TrainController');
   Route::resource('/station','StationController');
   Route::resource('/route','RouteController');
@@ -29,6 +28,7 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/role/edit/{id}','RoleController@edit');
   Route::resource('/sidebar','SidebarMenuController');
   Route::get('/sidebar/remove/{id}','SidebarMenuController@destroy');
+  Route::post('/profile/update','UserController@update');
 });
 
 Auth::routes();

@@ -48,7 +48,7 @@ class SidebarMenuController extends Controller
         $sidebar->icon = $request->icon;
         $sidebar->enabled = $request->enabled;
         $sidebar->save();
-        return redirect('dashboard/setting');
+        return redirect('dashboard/setting?parent='.$request->parent);
     }
 
     /**

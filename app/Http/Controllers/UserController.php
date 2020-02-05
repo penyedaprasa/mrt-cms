@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -69,7 +74,31 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if(Auth::check()){
+            if(empty($request->id)){
+                $user = Auth::user();
+            } else {
+                $user = User::findOrFail($request->id);
+            }
+            $user->name=$request->name;
+            $user->email=$request->email;
+            if(!empty($request->newpass)){
+                $user->password=bcrypt($request->newpass);
+            }
+            
+            if($request->file('avatar')){
+                $path = $request->file('avatar')->store('public/profile');
+                $filename='profile/'.basename($path);
+                $user->avatar=$filename;                
+            } 
+              
+            $user->save();
+            $msg=array('status'=>true,'message'=>'Update Profil Sukses!');
+            // return response()->json($msg);
+            return redirect('/dashboard/profile')
+        } else {
+            return redirect('/login');
+        }
     }
 
     /**
