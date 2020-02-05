@@ -68,7 +68,7 @@
             </aside>
             <!-- END Side Overlay -->
 
-            
+
             <nav id="sidebar" aria-label="Main Navigation">
                 <!-- Side Header -->
                 <div class="content-header bg-white-5">
@@ -478,14 +478,19 @@
                         $(this).html('<input type="text" placeholder="Search ' + title + '" />');
                     });
                     var table = $('#datatable').DataTable({
-                        // processing: true,
-                        // serverSide: true,
+                        processing: true,
+                        serverSide: true,
                         ajax: '{{ url()->current() }}',
                         columns:{!! General::columnDatatable($columns) !!}
                     });
                 @endif
             });
         </script>
+        <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+        @if(!empty($validator))
+            {!! $validator->render() !!}
+        @endif
+
         @yield('js_after')
     </body>
 </html>

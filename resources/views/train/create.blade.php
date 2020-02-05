@@ -16,9 +16,17 @@
 
     <!-- Page Content -->
     <div class="content">
-        <div class="row">
-
-        </div>
+        <form action="{{ route($view.'.store')}}" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            @include($view.'.field')
+            <div class="block">
+                <div class="row items-push">
+                    <div class="col-lg-8">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <!-- END Page Content -->
 @endsection

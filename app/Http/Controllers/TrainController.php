@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Train;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\TrainRequest;
+
+use App\Train;
+
 use App\Helpers\General;
+use Illuminate\Support\Facades\DB;
+use JsValidator;
 use Illuminate\Support\Facades\View;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class TrainController extends Controller
 {
@@ -21,6 +28,7 @@ class TrainController extends Controller
         $this->model        = "Train";
         $this->view         = "train";
         $this->main_model   = $main_model;
+        $this->validate     = 'TrainRequest';
 
         View::share('title', $this->title);
         View::share('model', $this->model);
@@ -34,15 +42,7 @@ class TrainController extends Controller
      */
     public function index(Request $request)
     {
-        $columns = [
-            'train_code',
-            'name',
-            'train_type',
-            'speed',
-            'speed_unit',
-            'status',
-            'action'
-        ];
+        $columns = ['train_code','name','train_type','speed','speed_unit','status','action'];
 
         if ($request->ajax()) {
             $datas = $this->main_model->select(["*"]);
@@ -64,7 +64,9 @@ class TrainController extends Controller
      */
     public function create()
     {
-        return view('train.create');
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.create')->with(compact('validator'));
+
     }
 
     /**
@@ -75,8 +77,21 @@ class TrainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        dd($input);
+        // // DB::beginTransaction();
+        // // try {
+        //     $data = $this->main_model->create($input);
+        //     // DB::commit();
+        //     // toast()->success('Data berhasil input', $this->title);
+        //     return redirect()->route($this->view . '.index');
+        // // } catch (\Exception $e) {
+        //     // DB::rollback();
+        //     // toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
+        // // }
+        // return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.
