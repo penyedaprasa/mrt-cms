@@ -21,8 +21,8 @@
         <!-- Fonts and Styles -->
         @yield('css_before')
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
-        <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
-        <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}">
+        <link rel="stylesheet" id="css-main" href="{{url('/')}}{{ mix('/css/oneui.css') }}">
+        <link rel="stylesheet" id="css-theme" href="{{url('/')}}{{ mix('/css/themes/amethyst.css') }}">
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
         @yield('css_after')
@@ -462,10 +462,10 @@
         <!-- END Page Container -->
 
         <!-- OneUI Core JS -->
-        <script src="{{ mix('js/oneui.app.js') }}"></script>
+        <script src="{{url('/')}}{{ mix('js/oneui.app.js') }}"></script>
 
         <!-- Laravel Scaffolding JS -->
-        <script src="{{ mix('js/laravel.app.js') }}"></script>
+        <script src="{{url('/')}}{{ mix('js/laravel.app.js') }}"></script>
 
         @yield('js_after')
     </body>

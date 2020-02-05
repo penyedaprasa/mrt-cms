@@ -13,7 +13,7 @@
                         Welcome to the MRT Information Board System!
                     </h2>
                     <span class="m-2 d-inline-block invisible" data-toggle="appear" data-class="animated fadeInUp" data-timeout="600">
-                        <a class="btn btn-success px-4 py-2" href="/dashboard">
+                        <a class="btn btn-success px-4 py-2" href="{{url('/dashboard')}}">
                             <i class="fa fa-fw fa-sign-in-alt mr-1"></i> Enter Dashboard
                         </a>
                         <a class="btn btn-primary px-4 py-2" href="{{route('register')}}">
