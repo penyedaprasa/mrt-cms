@@ -4,18 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Train;
 use Illuminate\Http\Request;
+use App\Helpers\General;
+use Illuminate\Support\Facades\View;
+use Yajra\Datatables\Datatables;
 
 class TrainController extends Controller
 {
+    private $title;
+    private $model;
+    private $view;
+    private $main_model;
+
+    public function __construct(Train $main_model)
+    {
+        $this->title        = "Train Management";
+        $this->model        = "Train";
+        $this->view         = "train";
+        $this->main_model   = $main_model;
+
+        View::share('title', $this->title);
+        View::share('model', $this->model);
+        View::share('view', $this->view);
+        View::share('main_model', $this->main_model);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $trains = Train::all();
-      return view('train.index',compact('trains'));
+        $columns = [
+            'train_code',
+            'name',
+            'train_type',
+            'speed',
+            'speed_unit',
+            'status',
+            'action'
+        ];
+
+        if ($request->ajax()) {
+            $datas = $this->main_model->select(["*"]);
+            return Datatables::of($datas)
+                ->addColumn('action', function ($data) {
+                    return view($this->view . '.action', compact('data'));
+                })
+                ->escapeColumns(['actions'])
+                ->make(true);
+        }
+        return view($this->view . '.index')
+            ->with(compact('columns'));
     }
 
     /**

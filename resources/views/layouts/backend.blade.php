@@ -21,8 +21,10 @@
         <!-- Fonts and Styles -->
         @yield('css_before')
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
-        <link rel="stylesheet" id="css-main" href="{{url('/')}}{{ mix('/css/oneui.css') }}">
-        <link rel="stylesheet" id="css-theme" href="{{url('/')}}{{ mix('/css/themes/amethyst.css') }}">
+        <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
+        <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
         @yield('css_after')
@@ -255,13 +257,13 @@
                         <!-- User Dropdown -->
                         <div class="dropdown d-inline-block ml-2">
                             <button type="button" class="btn btn-sm btn-dual" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="Header Avatar" style="width: 18px;">
+                                <img class="rounded" src="{{ url('/storage/'.Auth::user()->avatar) }}" alt="{{Auth::user()->name}}" style="width: 18px;">
                                 <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->name}}</span>
                                 <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="page-header-user-dropdown">
                                 <div class="p-3 text-center bg-primary">
-                                    <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
+                                    <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ url('/storage/'.Auth::user()->avatar) }}" alt="">
                                 </div>
                                 <div class="p-2">
                                     <h5 class="dropdown-header text-uppercase">User Options</h5>
@@ -467,6 +469,24 @@
         <!-- Laravel Scaffolding JS -->
         <script src="{{url('/')}}{{ mix('js/laravel.app.js') }}"></script>
 
+        <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                @if(!empty($columns))
+                    $('#datatable tfoot th').each(function () {
+                        var title = $(this).text();
+                        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                    });
+                    var table = $('#datatable').DataTable({
+                        // processing: true,
+                        // serverSide: true,
+                        ajax: '{{ url()->current() }}',
+                        columns:{!! General::columnDatatable($columns) !!}
+                    });
+                @endif
+            });
+        </script>
         @yield('js_after')
     </body>
 </html>

@@ -28,6 +28,7 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/role/edit/{id}','RoleController@edit');
   Route::resource('/sidebar','SidebarMenuController');
   Route::get('/sidebar/remove/{id}','SidebarMenuController@destroy');
+  Route::post('/profile/update','UserController@update');
 });
 
 Auth::routes();
