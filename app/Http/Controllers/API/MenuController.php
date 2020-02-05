@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Role;
+use App\Menu;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $menus = Menu::all();
+        $msg = array('status'=>true,'menus'=>$menus,'message'=>'Get All Menus');
+        return response()->json($msg);
     }
 
     /**
@@ -35,29 +37,16 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        if(empty($request->id)){
-            $role = Role::where('name',$request->name)->first();
-            if(empty($role)){
-                $role = new Role();
-            }
-        } else {
-            $role = Role::findOrFail($id);
-        }
-        $role->name = $request->name;
-        $role->description = $request->description;
-        $role->enabled = $request->enabled;
-        $role->save();
-        return redirect('dashboard/setting');
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Role  $role
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Menu $menu)
     {
         //
     }
@@ -65,23 +54,22 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Role  $role
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        $role = Role::findOrFail($id);
-        return $role;
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Role  $role
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Menu $menu)
     {
         //
     }
@@ -89,10 +77,10 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Role  $role
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Menu $menu)
     {
         //
     }

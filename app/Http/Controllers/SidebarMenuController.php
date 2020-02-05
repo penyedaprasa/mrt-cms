@@ -35,7 +35,20 @@ class SidebarMenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(empty($request->id)){
+            $sidebar = new SidebarMenu();
+        } else {
+            $sidebar = SidebarMenu::findOrFail($request->id);
+        }
+        $sidebar->title = $request->title;
+        $sidebar->tooltip = $request->tooltip;
+        $sidebar->route = $request->route;
+        $sidebar->url = $request->url;
+        $sidebar->parent = $request->parent;
+        $sidebar->icon = $request->icon;
+        $sidebar->enabled = $request->enabled;
+        $sidebar->save();
+        return redirect('dashboard/setting');
     }
 
     /**
@@ -78,8 +91,10 @@ class SidebarMenuController extends Controller
      * @param  \App\SidebarMenu  $sidebarMenu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SidebarMenu $sidebarMenu)
+    public function destroy($id)
     {
-        //
+        $sidebar=SidebarMenu::findOrFail($id);
+        $sidebar->delete();
+        return redirect('dashboard/setting');
     }
 }

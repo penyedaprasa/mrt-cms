@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Train;
+use App\Role;
+use App\SidebarMenu;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -35,9 +37,18 @@ class DashboardController extends Controller
     {
         return view('dashboard.profile');
     }
-    public function setting()
+    public function setting(Request $request)
     {
-        return view('dashboard.setting');
+        $roles = Role::all();    
+        $parent = $request->parent;
+        $parents = SidebarMenu::where('parent',0)->get();
+        if(empty($parent)){
+            $sidebars = SidebarMenu::where('parent',0)->get();    
+        } else {
+            $sidebars = SidebarMenu::where('parent',$parent)->get();    
+        }
+        
+        return view('dashboard.setting',compact('roles','sidebars','parents'));
     }
     public function account_lock()
     {
