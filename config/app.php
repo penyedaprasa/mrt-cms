@@ -231,6 +231,8 @@ return [
         'General' => App\Helpers\General::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'Helper' => App\Helpers\Helper::class,
+
     ],
 
 ];

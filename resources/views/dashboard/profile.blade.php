@@ -35,9 +35,9 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-4 col-xs-4 col-md-4">
-            <div class="box">
-            <div class="box-header"></div>
-            <div class="box-content">
+            <div class="block">
+            <div class="block-header"></div>
+            <div class="block-content">
             <form action="{{url('/dashboard/profile/update')}}" method="POST" enctype="multipart/form-data">
             @csrf 
             <div class="form-group">
