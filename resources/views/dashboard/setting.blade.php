@@ -77,7 +77,7 @@
             <div class="col-xl-6">
                 <div class="block">
                 <div class="block-header">
-                <h3 class="block-title">Sidebar Menu</h3>
+                <h3 class="block-title"><a href="{{url('/dashboard/setting')}}">Sidebar Menu</a></h3>
                 <div class="block-options">
                     <div class="block-options-item">
                         <button class="btn btn-primary" data-toggle="modal" 
@@ -116,10 +116,10 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#modal-edit-menu"
-                                    data-id="{{$menu->id}}" data-url="{{url('dashboard/menu/edit/'.$menu->id)}}" title="Edit Sidebar Menu">
-                                        <i class="fa fa-fw fa-pencil-alt"></i>
-                                    </button>
+                                    <a  class="btn btn-sm btn-light" 
+                                     href="{{url('dashboard/privilege/'.$menu->id)}}" title="Edit Privilege">
+                                        <i class="fa fa-fw fa-key"></i>
+                                    </a>
                                     <a href="{{url('dashboard/sidebar/remove/'.$menu->id)}}" class="btn btn-sm btn-light" data-toggle="tooltip" title="Remove Sidebar Menu">
                                         <i class="fa fa-fw fa-times"></i>
                                     </a>

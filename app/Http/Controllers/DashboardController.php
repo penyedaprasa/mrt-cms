@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Train;
 use App\Role;
+use App\RolePrivilege;
 use App\SidebarMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,9 +86,12 @@ class DashboardController extends Controller
      * @param  \App\Train  $train
      * @return \Illuminate\Http\Response
      */
-    public function edit(Train $train)
+    public function privileges($id)
     {
-        //
+        $privileges = RolePrivilege::where('menu_id',$id)->get();
+        $sidebar = SidebarMenu::find($id);
+        $roles = Role::all();
+        return view('dashboard.privileges',compact('privileges','sidebar','roles'));
     }
 
     /**
@@ -101,7 +105,35 @@ class DashboardController extends Controller
     {
         //
     }
+    public function update_priv(Request $request)
+    {
+        $menuid=$request->menu_id;
+        $roles = $request->role;
+        $creates = $request->grant_create;
+        $reads = $request->grant_read;
+        $updates = $request->grant_update;
+        $deletes = $request->grant_delete;
+        // $result = array(
+        //     'roles'=>$roles,
+        //     'creates'=>$creates,'reads'=>$reads,'updates'=>$updates,'deletes'=>$deletes);
+        // return $result;
+        for($i=0;$i<count($roles);$i++){
+            $priv = RolePrivilege::where('menu_id',$menuid)->where('role_id',$roles[$i])->first();
+            if(empty($priv)){
+                $priv = new RolePrivilege();
+                $priv->menu_id=$menuid;
+                $priv->role_id=$roles[$i];
+            }
+            $priv->grant_create=$creates[$i];
+            $priv->grant_read=$reads[$i];
+            $priv->grant_update=$updates[$i];
+            $priv->grant_delete=$deletes[$i];
+            
+            $priv->save();
 
+        }
+        return redirect('/dashboard/setting');
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -228,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'General' => App\Helpers\General::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Helper' => App\Helpers\Helper::class,
     ],
 
 ];

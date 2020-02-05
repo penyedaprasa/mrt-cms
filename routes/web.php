@@ -18,6 +18,8 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/profile','DashboardController@profile')->name('dashboard.profile');
   Route::get('/setting','DashboardController@setting')->name('dashboard.setting');
   Route::get('/account_lock','DashboardController@account_lock')->name('dashboard.account_lock');
+  Route::get('/privilege/{id}','DashboardController@privileges')->name('dashboard.privilege');
+  Route::post('/privilege/update','DashboardController@update_priv')->name('privilege.update');
   Route::resource('/train','TrainController');
   Route::resource('/station','StationController');
   Route::resource('/route','RouteController');
