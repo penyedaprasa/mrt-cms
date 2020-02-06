@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label for="">Enabled</label>
                         <div class="custom-control custom-switch custom-control-lg mb-2">
-                            <input type="checkbox" class="custom-control-input" id="example-sw-custom-lg1" name="enabled" value="yes" {{ $data->enabled == 'yes' ? 'checked':''}}>
+                            <input type="checkbox" class="custom-control-input" id="example-sw-custom-lg1" name="enabled" value="yes" {{ @$data->enabled == 'yes' ? 'checked':''}}>
                             <label class="custom-control-label" for="example-sw-custom-lg1"></label>
                         </div>
                     </div>
