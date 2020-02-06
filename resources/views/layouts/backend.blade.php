@@ -117,12 +117,20 @@
                         {!! Helper::sidebar_menu() !!}
                         <li class="nav-main-heading">APP</li>
                         <li class="nav-main-item open">
+                            <a class="nav-main-link" href="{{route('media.index')}}">
+                                <i class="nav-main-link-icon fa fa-images"></i>
+                                <span class="nav-main-link-name">Media</span>
+                            </a>
+                            <a class="nav-main-link" href="{{route('page.index')}}">
+                                <i class="nav-main-link-icon fa fa-map"></i>
+                                <span class="nav-main-link-name">Page</span>
+                            </a>
                             <a class="nav-main-link" href="{{route('banner.index')}}">
-                                <i class="nav-main-link-icon si si-globe"></i>
+                                <i class="nav-main-link-icon si si-layers"></i>
                                 <span class="nav-main-link-name">Banner</span>
                             </a>
                             <a class="nav-main-link" href="{{route('menu.index')}}">
-                                <i class="nav-main-link-icon si si-globe"></i>
+                                <i class="nav-main-link-icon si si-grid"></i>
                                 <span class="nav-main-link-name">Menu</span>
                             </a>
                         </li>

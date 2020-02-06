@@ -35,6 +35,12 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::resource('/banner','BannerController');
   Route::get('/banner/edit/{id}','BannerController@edit');
   Route::get('/banner/remove/{id}','BannerController@remove');
+  Route::resource('/media','MediaController');
+  Route::get('/media/edit/{id}','MediaController@edit');
+  Route::get('/media/remove/{id}','MediaController@remove');
+  Route::resource('/page','PageController');
+  Route::get('/page/edit/{id}','PageController@edit');
+  Route::get('/page/remove/{id}','PageController@remove');
   Route::resource('/menu','MenuController');
   Route::resource('/role','RoleController');
   Route::get('/role/edit/{id}','RoleController@edit');
