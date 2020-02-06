@@ -36,7 +36,17 @@ class StationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $stations = new Station();
+        $stations->name = $request->name;
+        $stations->description = $request->description;
+        $stations->image = $request->image;
+        $stations->latitude = $request->latitude;
+        $stations->longitude = $request->longitude;
+        $stations->time_open = $request->time_open;
+        $stations->time_close = $request->time_close;
+        $stations->status = $request->status;
+        
+        $stations->save();
     }
 
     /**

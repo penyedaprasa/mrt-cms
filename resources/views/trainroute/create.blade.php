@@ -23,7 +23,37 @@
     <div class="content">
         <div class="row">
             <div class="col-md-6 col-xl-5">
+            <div class="block">
+                <div class="block-header">
 
+                </div>
+                <div class="block-content">
+                <form id="form_train_routes" class="form" role="form" action="{{route('trainroute.store')}}" method="POST">
+                @csrf
+                <div class="form-group">
+                <label for="train_id">Train_id</label>
+                <input type="text" name="train_id" id="train_id" class="form-control"/></div>
+                <div class="form-group">
+                <label for="route_id">Route_id</label>
+                <input type="text" name="route_id" id="route_id" class="form-control"/></div>
+                <div class="form-group">
+                <label for="arrival">Arrival</label>
+                <input type="text" name="arrival" id="arrival" class="form-control"/></div>
+                <div class="form-group">
+                <label for="departure">Departure</label>
+                <input type="text" name="departure" id="departure" class="form-control"/></div>
+                <div class="py-3">
+                <div class="form-group row justify-content-center mb-0">
+                <div class="col-md-6 col-xl-5">
+                <button type="submit" class="btn btn-block btn-primary">
+                <i class="fa fa-fw fa-save mr-1"></i> Simpan Train_routes
+                </button>
+                </div>
+                </div>
+                </div>
+                </form>
+                </div>
+                </div>
             </div>
         </div>
     </div>

@@ -23,8 +23,22 @@
     <!-- Page Content -->
     <div class="content">
         <div class="row">
-            <div class="col-md-6 col-xl-5">
+            <div class="col-md-12 col-xl-12">
+                <div class="block">
+                <div class="block-header">
 
+                </div>
+                <div class="block-content">
+                <table id="banners" class="table table-stripe">
+                <thead> <tr><th>Id<th><th>Name<th><th>Image<th><th>Video<th><th>Url<th><th>Visible<th><th>Created_at<th><th>Updated_at<th><th>Action</th></tr>
+                </thead><tbody>
+                @foreach($banners as $item) 
+                <tr><td>{{$item->id}}<td><td>{{$item->name}}<td><td>{{$item->image}}<td><td>{{$item->video}}<td><td>{{$item->url}}<td><td>{{$item->visible}}<td><td>{{$item->created_at}}<td><td>{{$item->updated_at}}<td></tr>
+                @endforeach
+                </tbody>
+                </table>
+                </div>
+                </div>
             </div>
         </div>
     </div>

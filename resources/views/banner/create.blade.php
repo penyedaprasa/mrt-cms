@@ -22,8 +22,54 @@
     <!-- Page Content -->
     <div class="content">
         <div class="row">
-            <div class="col-md-6 col-xl-5">
+            <div class="col-md-8 col-xl-8">
+            <div class="block">
+                <div class="block-header">
 
+                </div>
+                <div class="block-content">
+                <form id="form_banners" class="form" role="form" action="{{route('banner.store')}}" method="POST">
+                @csrf
+                <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control"/></div>
+                <div class="form-group">
+                <label for="image">Image</label>
+                <div class="custom-file">
+                <input type="file" name="image" id="image" class="custom-file-input"/>
+                <label class="custom-file-label" for="image">Choose Thumbnail</label>
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="video">Video</label>
+                <div class="custom-file">
+                <input type="file" name="video" id="video" class="custom-file-input"/>
+                <label class="custom-file-label" for="video">Choose Video</label>
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="url">Url</label>
+                <input type="text" name="url" id="url" class="form-control"/></div>
+                <div class="form-check form-check-inline">
+                <label for="enabled1" class="form-check-label">Visible : </label>
+                    <input type="radio" name="visible" value="Y" class="form-check-input" checked/>
+                    Yes
+                    <input type="radio" name="visible" value="N" class="form-check-input"/>
+                    No
+                </div>
+
+                <div class="py-3">
+                <div class="form-group row justify-content-center mb-0">
+                    <div class="col-md-6 col-xl-5">
+                        <button type="submit" class="btn btn-block btn-primary">
+                            <i class="fa fa-fw fa-save mr-1"></i> Simpan Banner
+                        </button>
+                    </div>
+                </div>
+                </div>
+                </form>
+                </div>
+                </div>
             </div>
         </div>
     </div>

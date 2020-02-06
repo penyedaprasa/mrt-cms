@@ -35,7 +35,16 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = new Message();
+        $messages->subject = $request->subject;
+        $messages->body = $request->body;
+        $messages->sender = $request->sender;
+        $messages->recipient = $request->recipient;
+        $messages->reply_from = $request->reply_from;
+        $messages->attachment = $request->attachment;
+        $messages->status = $request->status;
+        
+        $messages->save();
     }
 
     /**

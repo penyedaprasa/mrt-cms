@@ -36,7 +36,30 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $banners = Banner::where('name',$request->name)->first();
+        if(empty($banners)){
+            $banners = new Banner();
+            $banners->name = $request->name;
+        }
+        
+        if($request->file('image')){
+            $path = $request->file('image')->store('public/images');
+            $filename='images/'.basename($path);
+            $banners->image=$filename;                
+        } 
+        if($request->file('video')){
+            $path = $request->file('video')->store('public/videos');
+            $filename='videos/'.basename($path);
+            $banners->video=$filename;                
+            
+        }
+        
+        $banners->url = $request->url;
+        $banners->visible = $request->visible;
+         
+        $banners->save();
+        return redirect('dashboard/banner');
     }
 
     /**
