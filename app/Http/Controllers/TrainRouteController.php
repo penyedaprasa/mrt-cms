@@ -14,8 +14,8 @@ class TrainRouteController extends Controller
      */
     public function index()
     {
-      $trainroutes = TrainRoute::all();
-      return view('trainroute.index',compact('trainroutes'));
+      $train_routes = TrainRoute::all();
+      return view('trainroute.index',compact('train_routes'));
     }
 
     /**
@@ -25,6 +25,7 @@ class TrainRouteController extends Controller
      */
     public function create()
     {
+        
         return view('trainroute.create');
     }
 
@@ -36,7 +37,13 @@ class TrainRouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $train_routes = new TrainRoute();
+        $train_routes->train_id = $request->train_id;
+        $train_routes->route_id = $request->route_id;
+        $train_routes->arrival = $request->arrival;
+        $train_routes->departure = $request->departure;
+        
+        $train_routes->save();
     }
 
     /**

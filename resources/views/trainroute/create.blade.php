@@ -23,7 +23,14 @@
     <div class="content">
         <div class="row">
             <div class="col-md-6 col-xl-5">
+            <div class="block">
+                <div class="block-header">
 
+                </div>
+                <div class="block-content">
+                
+                </div>
+                </div>
             </div>
         </div>
     </div>

@@ -37,7 +37,16 @@ class RouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $routes = new Route();
+        $routes->name = $request->name;
+        $routes->description = $request->description;
+        $routes->image = $request->image;
+        $routes->source = $request->source;
+        $routes->destination = $request->destination;
+        $routes->distance = $request->distance;
+        $routes->time_est = $request->time_est;
+        
+        $routes->save();
     }
 
     /**

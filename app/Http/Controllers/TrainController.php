@@ -75,7 +75,22 @@ class TrainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $trains = new Train();
+        $trains->name = $request->name;
+        $trains->train_code = $request->train_code;
+        $trains->image = $request->image;
+        $trains->description = $request->description;
+        $trains->train_type = $request->train_type;
+        $trains->speed = $request->speed;
+        $trains->speed_unit = $request->speed_unit;
+        $trains->current_lat = $request->current_lat;
+        $trains->current_lng = $request->current_lng;
+        $trains->status = $request->status;
+        $trains->heading_to = $request->heading_to;
+        $trains->enabled = $request->enabled;
+        $trains->created_at = $request->created_at;
+        $trains->updated_at = $request->updated_at;
+        $trains->save();
     }
 
     /**

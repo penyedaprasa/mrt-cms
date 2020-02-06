@@ -23,7 +23,52 @@
     <div class="content">
         <div class="row">
             <div class="col-md-6 col-xl-5">
-
+            <div class="block">
+                <div class="block-header">
+                <h3 class="block-title">Create Menu</h3>
+                </div>
+                <div class="block-content">
+            <form action="{{route('menu.store')}}" method="POST" enctype="multipart/form-data">
+            @csrf 
+            <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control"/></div>
+            <div class="form-group">
+            <label for="icon">Icon</label>
+            <div class="custom-file">
+            <input type="file" name="icon" id="icon" class="custom-file-input" data-toggle="custom-file-input"/>
+            <label class="custom-file-label" for="icon">Choose Icon</label>
+            </div>
+            </div>
+            <div class="form-group">
+            <div class="form-group">
+            <label for="avatar" class="form-label">Image</label>
+            <div class="custom-file">
+            <input type="file" name="image" id="avatar" class="custom-file-input" data-toggle="custom-file-input"/>
+            <label class="custom-file-label" for="avatar">Choose Image</label>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for="action_text">Action_text</label>
+            <input type="text" name="action_text" id="action_text" class="form-control"/></div>
+            <div class="form-group">
+            <label for="action_url">Action_url</label>
+            <input type="text" name="action_url" id="action_url" class="form-control"/></div>
+            <div class="form-group">
+            <label for="visible">Visible</label>
+            <input type="text" name="visible" id="visible" class="form-control"/></div>
+            <div class="py-3">
+                <div class="form-group row justify-content-center mb-0">
+                    <div class="col-md-6 col-xl-5">
+                        <button type="submit" class="btn btn-block btn-primary">
+                            <i class="fa fa-fw fa-save mr-1"></i> Simpan Menu
+                        </button>
+                    </div>
+                </div>
+                </div>
+            </form>
+                </div>
+                </div>
             </div>
         </div>
     </div>

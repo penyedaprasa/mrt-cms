@@ -36,7 +36,16 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $menus = new Menu();
+        $menus->title = $request->title;
+        $menus->icon = $request->icon;
+        $menus->image = $request->image;
+        $menus->video = $request->video;
+        $menus->action_text = $request->action_text;
+        $menus->action_url = $request->action_url;
+        $menus->visible = $request->visible;
+        
+        $menus->save();
     }
 
     /**

@@ -40,7 +40,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = new User();
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->email_verified_at = $request->email_verified_at;
+        $users->password = $request->password;
+        $users->role_id = $request->role_id;
+        $users->avatar = $request->avatar;
+        $users->remember_token = $request->remember_token;
+        $users->locked = $request->locked;
+        $users->status = $request->status;
+        $users->created_at = $request->created_at;
+        $users->updated_at = $request->updated_at;
+        $users->save();
     }
 
     /**
@@ -95,7 +107,7 @@ class UserController extends Controller
             $user->save();
             $msg=array('status'=>true,'message'=>'Update Profil Sukses!');
             // return response()->json($msg);
-            return redirect('/dashboard/profile')
+            return redirect('/dashboard/profile');
         } else {
             return redirect('/login');
         }

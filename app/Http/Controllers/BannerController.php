@@ -36,7 +36,14 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $banners = new Banner();
+        $banners->name = $request->name;
+        $banners->image = $request->image;
+        $banners->video = $request->video;
+        $banners->url = $request->url;
+        $banners->visible = $request->visible;
+         
+        $banners->save();
     }
 
     /**
