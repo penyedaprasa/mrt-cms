@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Train;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\TrainRequest;
+
+use App\Train;
+
 use App\Helpers\General;
+use Illuminate\Support\Facades\DB;
+use JsValidator;
 use Illuminate\Support\Facades\View;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class TrainController extends Controller
 {
@@ -21,6 +28,7 @@ class TrainController extends Controller
         $this->model        = "Train";
         $this->view         = "train";
         $this->main_model   = $main_model;
+        $this->validate     = 'TrainRequest';
 
         View::share('title', $this->title);
         View::share('model', $this->model);
@@ -34,15 +42,7 @@ class TrainController extends Controller
      */
     public function index(Request $request)
     {
-        $columns = [
-            'train_code',
-            'name',
-            'train_type',
-            'speed',
-            'speed_unit',
-            'status',
-            'action'
-        ];
+        $columns = ['train_code','name','train_type','speed','speed_unit','status','action'];
 
         if ($request->ajax()) {
             $datas = $this->main_model->select(["*"]);
@@ -64,7 +64,9 @@ class TrainController extends Controller
      */
     public function create()
     {
-        return view('train.create');
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.create')->with(compact('validator'));
+
     }
 
     /**
@@ -73,25 +75,23 @@ class TrainController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrainRequest $request)
     {
-        $trains = new Train();
-        $trains->name = $request->name;
-        $trains->train_code = $request->train_code;
-        $trains->image = $request->image;
-        $trains->description = $request->description;
-        $trains->train_type = $request->train_type;
-        $trains->speed = $request->speed;
-        $trains->speed_unit = $request->speed_unit;
-        $trains->current_lat = $request->current_lat;
-        $trains->current_lng = $request->current_lng;
-        $trains->status = $request->status;
-        $trains->heading_to = $request->heading_to;
-        $trains->enabled = $request->enabled;
-        $trains->created_at = $request->created_at;
-        $trains->updated_at = $request->updated_at;
-        $trains->save();
+        $input = $request->all();
+        // dd($input);
+        DB::beginTransaction();
+        try {
+            $data = $this->main_model->create($input);
+            DB::commit();
+            toast()->success('Data berhasil input', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
+        }
+        return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.
@@ -110,9 +110,12 @@ class TrainController extends Controller
      * @param  \App\Train  $train
      * @return \Illuminate\Http\Response
      */
-    public function edit(Train $train)
+    public function edit($id)
     {
-        //
+        $data = $this->main_model->findOrFail($id);
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.edit')->with(compact('validator', 'data'));
+
     }
 
     /**
@@ -122,10 +125,25 @@ class TrainController extends Controller
      * @param  \App\Train  $train
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Train $train)
+    public function update(TrainRequest $request, $id)
     {
-        //
+        $input = $request->all();
+        // dd($input);
+        $data = $this->main_model->findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $data->fill($input)->save();
+            DB::commit();
+            toast()->success('Data berhasil input', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
+            DB::rollback();
+        }
+        return redirect()->back();
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -133,8 +151,19 @@ class TrainController extends Controller
      * @param  \App\Train  $train
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Train $train)
+    public function destroy($id)
     {
-        //
+        $data = $this->main_model->findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $data->delete();
+            DB::commit();
+            toast()->success('Data berhasil di hapus', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+        toast()->error('Terjadi Kesalahan', $this->title);
+        return redirect()->back();
     }
 }
