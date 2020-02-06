@@ -295,6 +295,7 @@
 
             <!-- Main Container -->
             <main id="main-container">
+                @include('toast::messages')
                 @yield('content')
             </main>
             <!-- END Main Container -->

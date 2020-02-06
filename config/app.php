@@ -167,7 +167,7 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
-
+        Grimthorr\LaravelToast\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,6 +232,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'Helper' => App\Helpers\Helper::class,
+        'Toast' => Grimthorr\LaravelToast\Facade::class,
 
     ],
 

@@ -25,7 +25,7 @@ class TrainRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'train_code' => 'required'
+            'train_code' => 'required|unique:trains,train_code,'. $this->segment(3)
         ];
     }
 }
