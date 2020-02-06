@@ -30,37 +30,42 @@
                 <div class="block-content">
                 <form action="{{route('station.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf 
+                <input type="hidden" name="id" value="{{$station->id}}"/>
+
                 <div class="form-group">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" id="name" value="" class="form-control"/>
+                <input type="text" name="name" id="name"class="form-control"  value="{{$station->name}}"/>
                 </div>
                 <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" name="description" id="description" class="form-control"/></div>
+                <input type="text" name="description" id="description" class="form-control"
+                value="{{$station->description}}"/></div>
                 <div class="form-group">
                 <label for="avatar" class="form-label">Image</label>
                 <div class="custom-file">
                 <input type="file" name="image" id="avatar" class="custom-file-input" data-toggle="custom-file-input"/>
-                <label class="custom-file-label" for="example-file-input-custom">Choose file</label>
+                <label class="custom-file-label" for="avatar">Choose file</label>
                 </div>
                 </div>
                 <div class="form-group">
                 <label for="latitude" class="form-label">Latitude</label>
-                <input type="text" name="latitude" id="latitude" value="" class="form-control"/>
+                <input type="text" name="latitude" id="latitude" value="{{$station->latitude}}" class="form-control"/>
                 </div>
                 <div class="form-group">
                 <label for="longitude" class="form-label">Longitude</label>
-                <input type="text" name="longitude" id="longitude" value="" class="form-control"/>
+                <input type="text" name="longitude" id="longitude" value="{{$station->longitude}}" class="form-control"/>
                 </div>
                 <div class="form-group">
-                <label for="time_open">Time_open</label>
-                <input type="text" name="time_open" id="time_open" class="form-control"/></div>
+                <label for="time_open">Time Open</label>
+                <input type="text" name="time_open" id="time_open" class="form-control" value="{{$station->time_open}}"/></div>
                 <div class="form-group">
-                <label for="time_close">Time_close</label>
-                <input type="text" name="time_close" id="time_close" class="form-control"/></div>
+                <label for="time_close">Time Close</label>
+                <input type="text" name="time_close" id="time_close" class="form-control" value="{{$station->time_close}}"/></div>
                 <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" name="status" id="status" class="form-control"/></div>
+                <label for="time_close">Status</label>
+                {!! Helper::create_radio('status',['close','open'],'open') !!}
+                
+                </div>
                 <div class="form-group">
                 
                 <button type="submit" class="btn btn-primary">Add Station</button>

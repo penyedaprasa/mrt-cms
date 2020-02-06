@@ -47,7 +47,7 @@ class StationController extends Controller
         if($request->file('image')){
             $path = $request->file('image')->store('public/images');
             $filename='images/'.basename($path);
-            $menus->image=$filename;                
+            $stations->image=$filename;                
         } 
         $stations->latitude = $request->latitude;
         $stations->longitude = $request->longitude;
@@ -78,7 +78,8 @@ class StationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $station=Station::findOrFail($id);
+        return view('station.edit',compact('station'));
     }
 
     /**
