@@ -32,10 +32,11 @@
 <thead> <tr><th>Id</th><th>Name</th><th>Description</th><th>Image</th><th>Open</th><th>Close</th><th>Status</th><th>Created At</th><th>Action</th></tr>
 </thead><tbody>
 @foreach($stations as $item) 
-<tr><td>{{$item->id}}</td><td>{{$item->name}}</td><td>{{$item->description}}</td><td>{{$item->image}}</td>
+<tr><td>{{$item->id}}</td><td>{{$item->name}}</td><td>{{$item->description}}</td>
+<td><img src="{{url('/storage/'.$item->image)}}"/></td>
 <td>{{$item->time_open}}</td><td>{{$item->time_close}}</td><td>{{$item->status}}</td><td>{{$item->created_at}}</td>
 <td><a class="btn btn-primary" href="{{url('dashboard/station/edit/'.$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
-<a class="btn btn-danger"  href="{{url(''dashboard/station/remove/'.$item->id')}}"><i class="fa fa-trash"></i>Remove</a></td></tr>
+<a class="btn btn-danger"  href="{{url('dashboard/station/remove/'.$item->id)}}"><i class="fa fa-trash"></i>Remove</a></td></tr>
 @endforeach
 </tbody>
 </table>
