@@ -28,7 +28,7 @@
 
                 </div>
                 <div class="block-content">
-                <form id="form_routes" class="form" role="form" action="{{route('routes.store')}}" method="POST">
+                <form id="form_routes" class="form" role="form" action="{{route('route.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
                 <label for="name">Name</label>
@@ -55,7 +55,16 @@
                 <div class="form-group">
                 <label for="time_est">Time_est</label>
                 <input type="text" name="time_est" id="time_est" class="form-control"/></div>
-                
+                <div class="py-3">
+                    <div class="form-group row justify-content-center mb-0">
+                    <div class="col-md-6 col-xl-5">
+                    <button type="submit" class="btn btn-block btn-primary">
+                    <i class="fa fa-fw fa-save mr-1"></i> Simpan Rute
+                    </button>
+                    </div>
+                    </div>
+                    </div>
+                </form>
                 </div>
                 </div>
             </div>

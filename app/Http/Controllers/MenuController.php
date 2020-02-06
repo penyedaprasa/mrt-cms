@@ -36,16 +36,34 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $menus = new Menu();
-        $menus->title = $request->title;
-        $menus->icon = $request->icon;
-        $menus->image = $request->image;
-        $menus->video = $request->video;
+        $menus = Menu::where('title',$request->title)->first();
+        if(empty($menus)){
+            $menus = new Menu();
+            $menus->title = $request->title;
+        }
+        
+        if($request->file('icon')){
+            $path = $request->file('icon')->store('public/icons');
+            $filename='icons/'.basename($path);
+            $menus->icon=$filename;                
+        }
+        if($request->file('image')){
+            $path = $request->file('image')->store('public/images');
+            $filename='images/'.basename($path);
+            $menus->image=$filename;                
+        } 
+        if($request->file('video')){
+            $path = $request->file('video')->store('public/videos');
+            $filename='videos/'.basename($path);
+            $menus->video=$filename;                
+            
+        }
         $menus->action_text = $request->action_text;
         $menus->action_url = $request->action_url;
         $menus->visible = $request->visible;
         
         $menus->save();
+        return redirect('dashboard/menu');
     }
 
     /**

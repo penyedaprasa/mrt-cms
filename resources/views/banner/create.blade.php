@@ -22,7 +22,7 @@
     <!-- Page Content -->
     <div class="content">
         <div class="row">
-            <div class="col-md-6 col-xl-5">
+            <div class="col-md-8 col-xl-8">
             <div class="block">
                 <div class="block-header">
 
@@ -50,9 +50,14 @@
                 <div class="form-group">
                 <label for="url">Url</label>
                 <input type="text" name="url" id="url" class="form-control"/></div>
-                <div class="form-group">
-                <label for="visible">Visible</label>
-                <input type="text" name="visible" id="visible" class="form-control"/></div>
+                <div class="form-check form-check-inline">
+                <label for="enabled1" class="form-check-label">Visible : </label>
+                    <input type="radio" name="visible" value="Y" class="form-check-input" checked/>
+                    Yes
+                    <input type="radio" name="visible" value="N" class="form-check-input"/>
+                    No
+                </div>
+
                 <div class="py-3">
                 <div class="form-group row justify-content-center mb-0">
                     <div class="col-md-6 col-xl-5">
