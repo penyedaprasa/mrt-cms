@@ -8,7 +8,7 @@
                 <h1 class="flex-sm-fill h3 my-2">Station</h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Create</li>
+                        <li class="breadcrumb-item">Update</li>
                         <li class="breadcrumb-item" aria-current="page">
                             <a class="link-fx" href="">Station</a>
                         </li>
@@ -22,10 +22,10 @@
     <!-- Page Content -->
     <div class="content">
         <div class="row ">
-            <div class="col-md-8 col-xl-8">
+            <div class="col-md-6 col-xl-5">
             <div class="block">
                 <div class="block-header">
-                <h3 class="block-title">Create Station</h3>
+                <h3 class="block-title">Update Station</h3>
                 </div>
                 <div class="block-content">
                 <form action="{{route('station.store')}}" method="POST" enctype="multipart/form-data">

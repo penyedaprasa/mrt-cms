@@ -36,10 +36,19 @@ class StationController extends Controller
      */
     public function store(Request $request)
     {
-        $stations = new Station();
-        $stations->name = $request->name;
+        
+        $stations = Station::where('name',$request->name)->first();
+        if(empty($stations)){
+            $stations = new Station();
+            $stations->name = $request->name;
+        }
+        
         $stations->description = $request->description;
-        $stations->image = $request->image;
+        if($request->file('image')){
+            $path = $request->file('image')->store('public/images');
+            $filename='images/'.basename($path);
+            $menus->image=$filename;                
+        } 
         $stations->latitude = $request->latitude;
         $stations->longitude = $request->longitude;
         $stations->time_open = $request->time_open;
@@ -47,6 +56,7 @@ class StationController extends Controller
         $stations->status = $request->status;
         
         $stations->save();
+        return redirect('dashboard/station');
     }
 
     /**
@@ -66,7 +76,7 @@ class StationController extends Controller
      * @param  \App\Station  $station
      * @return \Illuminate\Http\Response
      */
-    public function edit(Station $station)
+    public function edit($id)
     {
         //
     }

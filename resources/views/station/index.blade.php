@@ -22,20 +22,23 @@
     <!-- Page Content -->
     <div class="content">
         <div class="row ">
-            <div class="col-md-6 col-xl-5">
+            <div class="col-md-12 col-xl-12">
             <div class="block">
                 <div class="block-header">
 
                 </div>
                 <div class="block-content">
                 <table id="stations" class="table table-stripe">
-                <thead> <tr><th>Id<th><th>Name<th><th>Description<th><th>Image<th><th>Latitude<th><th>Longitude<th><th>Time_open<th><th>Time_close<th><th>Status<th><th>Created_at<th><th>Updated_at<th><th>Action</th></tr>
-                </thead><tbody>
-                @foreach($stations as $item) 
-                <tr><td>{{$item->id}}<td><td>{{$item->name}}<td><td>{{$item->description}}<td><td>{{$item->image}}<td><td>{{$item->latitude}}<td><td>{{$item->longitude}}<td><td>{{$item->time_open}}<td><td>{{$item->time_close}}<td><td>{{$item->status}}<td><td>{{$item->created_at}}<td><td>{{$item->updated_at}}<td></tr>
-                @endforeach
-                </tbody>
-                </table>
+<thead> <tr><th>Id</th><th>Name</th><th>Description</th><th>Image</th><th>Open</th><th>Close</th><th>Status</th><th>Created At</th><th>Action</th></tr>
+</thead><tbody>
+@foreach($stations as $item) 
+<tr><td>{{$item->id}}</td><td>{{$item->name}}</td><td>{{$item->description}}</td><td>{{$item->image}}</td>
+<td>{{$item->time_open}}</td><td>{{$item->time_close}}</td><td>{{$item->status}}</td><td>{{$item->created_at}}</td>
+<td><a class="btn btn-primary" href="{{url('dashboard/station/edit/'.$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
+<a class="btn btn-danger"  href="{{url(''dashboard/station/remove/'.$item->id')}}"><i class="fa fa-trash"></i>Remove</a></td></tr>
+@endforeach
+</tbody>
+</table>
                 </div>
                 </div>
             </div>
