@@ -10,11 +10,11 @@ class Route extends Model
 
     public function stationSource()
     {
-        return $this->belongsTo('App\Station','source');
+        return $this->belongsTo(Station::class, 'source');
     }
 
     public function stationDestination()
     {
-        return $this->belongsTo('App\Station','destination');
+        return $this->belongsTo(Station::class, 'destination');
     }
 }

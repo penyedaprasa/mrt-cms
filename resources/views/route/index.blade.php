@@ -26,13 +26,13 @@
                 <table id="datatable" class="table table-bordered table-striped table-vcenter js-dataTable-full dataTable no-footer">
                     <thead>
                         <tr role="row">
-                            <th>Name</th>
-                            <th>Description</th>
+                            <th width="15%">Name</th>
+                            <th width="25%">Description</th>
                             <th>Source</th>
                             <th>Destination</th>
-                            <th>Distance</th>
-                            <th>Time Est</th>
-                            <th>Action</th>
+                            <th width="8%">Distance</th>
+                            <th width="8%">Time Est</th>
+                            <th width="15%">Action</th>
                         </tr>
                     </thead>
                     <tbody>

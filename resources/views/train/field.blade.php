@@ -1,6 +1,6 @@
 <div class="block">
     <div class="block-header">
-        <h3 class="block-title">Form Input New Train</h3>
+        <h3 class="block-title">Form Input</h3>
     </div>
     <div class="block-content block-content-full">
             <div class="row items-push">
@@ -50,7 +50,6 @@
                         <img class="img-fluid options-item" id="train-image-show" src="" alt="">
                     </div>
                 </div>
-
             </div>
             <div class="row items-push">
                 <div class="col-lg-8">
@@ -75,5 +74,6 @@ function readURL(input) {
 $("#train-image-upload").change(function() {
   readURL(this);
 });
+
 </script>
 @endsection
