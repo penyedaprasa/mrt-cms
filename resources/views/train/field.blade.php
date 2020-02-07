@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Speed Unit</label>
-                        <input type="number" class="form-control" name="speed_unit" value="{{@$data->speed_unit}}" placeholder="Enter a Train Speed Unit..">
+                        <input type="text" class="form-control" name="speed_unit" value="{{@$data->speed_unit}}" placeholder="Enter a Train Speed Unit..">
                     </div>
                     <div class="form-group">
                         <label for="">Enabled</label>
