@@ -57,19 +57,16 @@
                     </form>
                 </div>
                 </div>
+                
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-6">
-            <div class="block">
-                <div class="block-header">
-                <h3 class="block-title">Preview</h3>
-                </div>
-                <div class="block-content">
-                    <div class="preview-page">
-                        <div class="preview-frame-video"></div>
-                        <div class="preview-frame-image"></div>
-                    </div>    
-                </div>
-            </div>    
+            <div class="col-md-6">
+            <h3 class="block-title">Preview</h3>
+            <div class="preview-page">
+                <div class="banner-text"><marquee>BANNER HERE</marquee></div>
+                        <img src="/media/icon_video.png" class="preview-frame-video" />
+                        <img src="/media/icon_image.png"  class="preview-frame-image" />
+                        
+                    </div>        
             </div>
         </div>
     </div>

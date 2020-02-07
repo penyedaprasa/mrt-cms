@@ -9,8 +9,11 @@
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">Master</li>
+                        <li class="breadcrumb-item">
+                            <a class="link-fx" href="{{route('station.index')}}">Station</a>
+                        </li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Station</a>
+                            <a class="link-fx" href="{{route('station.create')}}">Create</a>
                         </li>
                     </ol>
                 </nav>
@@ -29,14 +32,24 @@
                 </div>
                 <div class="block-content">
                 <table id="stations" class="table table-stripe">
-<thead> <tr><th>Id</th><th>Name</th><th>Description</th><th>Image</th><th>Open</th><th>Close</th><th>Status</th><th>Created At</th><th>Action</th></tr>
+<thead> <tr><th>Id</th><th>Name</th><th>Description</th><th>Image</th><th>Status</th>
+<th>Action</th></tr>
 </thead><tbody>
 @foreach($stations as $item) 
-<tr><td>{{$item->id}}</td><td>{{$item->name}}</td><td>{{$item->description}}</td>
-<td><img src="{{url('/storage/'.$item->image)}}"/></td>
-<td>{{$item->time_open}}</td><td>{{$item->time_close}}</td><td>{{$item->status}}</td><td>{{$item->created_at}}</td>
-<td><a class="btn btn-primary" href="{{url('dashboard/station/edit/'.$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
-<a class="btn btn-danger"  href="{{url('dashboard/station/remove/'.$item->id)}}"><i class="fa fa-trash"></i>Remove</a></td></tr>
+<tr><td>{{$item->id}}</td>
+<td><p>{{$item->name}}</p>
+    <small>created at : {{$item->created_at}}</small>
+</td><td><p>{{$item->description}}</p>
+<small>Open : {{$item->time_open}}</small>
+,<small>Close : {{$item->time_close}}</small>
+</td>
+<td><img src="{{url('/storage/'.$item->image)}}" class="row-image-thumbnail"/></td>
+<td><p>{{$item->status}}</p><p>lanes: {{$item->lanes}}</p></td>
+<td><div class="btn-group">
+    <a class="btn btn-sm btn-primary" href="{{url('dashboard/station/edit/'.$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
+<a class="btn btn-sm btn-danger"  href="{{url('dashboard/station/remove/'.$item->id)}}"><i class="fa fa-trash"></i>Remove</a>
+</div>
+</td></tr>
 @endforeach
 </tbody>
 </table>

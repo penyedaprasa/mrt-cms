@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/banner','API\BannerController@index');
 Route::get('/menu','API\MenuController@index');
+Route::get('/station','API\StationController@index');
