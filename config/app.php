@@ -168,7 +168,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Grimthorr\LaravelToast\ServiceProvider::class,
-
+        Lakshmaji\Thumbnail\ThumbnailServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -177,6 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
 
     ],
 
@@ -233,7 +234,7 @@ return [
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'Helper' => App\Helpers\Helper::class,
         'Toast' => Grimthorr\LaravelToast\Facade::class,
-
+        'Thumbnail' => Lakshmaji\Thumbnail\Facade\Thumbnail::class,
     ],
 
 ];

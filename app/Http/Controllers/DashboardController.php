@@ -6,6 +6,7 @@ use App\Train;
 use App\Role;
 use App\RolePrivilege;
 use App\SidebarMenu;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,9 +38,14 @@ class DashboardController extends Controller
      */
     public function profile()
     {
-        $user = Auth::user();
-        $role = Role::find($user->role_id);
-        return view('dashboard.profile',compact('user','role'));
+        if(Auth::check()){
+            $user = User::find(Auth::user()->id);
+            $role = Role::find($user->role_id);
+            return view('dashboard.profile',compact('user','role'));
+        } else {
+            return redirect('/login');
+        }
+        
     }
     public function setting(Request $request)
     {

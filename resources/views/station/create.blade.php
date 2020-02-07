@@ -53,14 +53,16 @@
                 <input type="text" name="longitude" id="longitude" value="" class="form-control"/>
                 </div>
                 <div class="form-group">
-                <label for="time_open">Time_open</label>
-                <input type="text" name="time_open" id="time_open" class="form-control"/></div>
+                <label for="time_open">Time Open</label>
+                <input type="text" name="time_open" id="time_open" class="js-flatpickr form-control" data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"/></div>
                 <div class="form-group">
-                <label for="time_close">Time_close</label>
-                <input type="text" name="time_close" id="time_close" class="form-control"/></div>
+                <label for="time_close">Time Close</label>
+                <input type="text" name="time_close" id="time_close" class="js-flatpickr form-control" data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"/></div>
                 <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" name="status" id="status" class="form-control"/></div>
+                <label for="time_close">Status</label>
+                {!! Helper::create_radio('status',['close','open'],'open') !!}
+                
+                </div>
                 <div class="form-group">
                 
                 <button type="submit" class="btn btn-primary">Add Station</button>
@@ -72,4 +74,7 @@
         </div>
     </div>
     <!-- END Page Content -->
+@endsection
+@section('js_after')
+<script>jQuery(function(){ One.helpers(['flatpickr', 'datepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider']); });</script>
 @endsection

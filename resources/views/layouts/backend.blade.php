@@ -24,7 +24,13 @@
         <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
         <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-
+        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
+        <link rel="stylesheet" href="/assets/js/plugins/dropzone/dist/min/dropzone.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/flatpickr/flatpickr.min.css">
+        <link rel="stylesheet" href="/css/custom.css">
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
         @yield('css_after')
@@ -112,12 +118,20 @@
                         {!! Helper::sidebar_menu() !!}
                         <li class="nav-main-heading">APP</li>
                         <li class="nav-main-item open">
+                            <a class="nav-main-link" href="{{route('media.index')}}">
+                                <i class="nav-main-link-icon fa fa-images"></i>
+                                <span class="nav-main-link-name">Media</span>
+                            </a>
+                            <a class="nav-main-link" href="{{route('page.index')}}">
+                                <i class="nav-main-link-icon fa fa-map"></i>
+                                <span class="nav-main-link-name">Page</span>
+                            </a>
                             <a class="nav-main-link" href="{{route('banner.index')}}">
-                                <i class="nav-main-link-icon si si-globe"></i>
+                                <i class="nav-main-link-icon si si-layers"></i>
                                 <span class="nav-main-link-name">Banner</span>
                             </a>
                             <a class="nav-main-link" href="{{route('menu.index')}}">
-                                <i class="nav-main-link-icon si si-globe"></i>
+                                <i class="nav-main-link-icon si si-grid"></i>
                                 <span class="nav-main-link-name">Menu</span>
                             </a>
                         </li>
@@ -390,11 +404,19 @@
         <!-- END Page Container -->
 
         <!-- OneUI Core JS -->
-        <script src="{{url('/')}}{{ mix('js/oneui.app.js') }}"></script>
+         <script src="/assets/js/oneui.core.min.js"></script>
 
         <!-- Laravel Scaffolding JS -->
-        <script src="{{url('/')}}{{ mix('js/laravel.app.js') }}"></script>
+        <script src="/assets/js/oneui.app.min.js"></script>
 
+        <script src="/assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+        <script src="/assets/js/plugins/select2/js/select2.full.min.js"></script>
+        <script src="/assets/js/plugins/jquery.maskedinput/jquery.maskedinput.min.js"></script>
+        <script src="/assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+        <script src="/assets/js/plugins/dropzone/dropzone.min.js"></script>
+        <script src="/assets/js/plugins/flatpickr/flatpickr.min.js"></script>
         <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
