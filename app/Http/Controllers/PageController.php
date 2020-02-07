@@ -14,7 +14,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $pages = Page::all();
+        return view('page.index',compact('pages'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('page.create');
     }
 
     /**
@@ -35,7 +36,25 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),
+            ['title'=>'required']);
+        if($validator->fails()){
+            $msg = array('status'=>false,'Judul tidak boleh kosong!');
+        } else {
+            $pages = Page::where('title',$request->title)->first();
+            if(empty($pages)){
+                $pages = new Page();
+                $pages->title = $request->title;
+            }
+            $pages->banner_text = $request->banner_text;
+            $pages->time_visible = $request->time_visible;
+            $pages->date_visible = $request->date_visible;
+            $pages->created_at = $request->created_at;
+            $pages->updated_at = $request->updated_at;
+            $pages->save();
+            $msg = array('status'=>true,'Menambahkan Halaman Sukses!','page'=>$pages);
+        }    
+        return response()->json($msg);
     }
 
     /**
@@ -55,9 +74,10 @@ class PageController extends Controller
      * @param  \App\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($id)
     {
-        //
+        $page = Page::find($id);
+        return view('page.edit',compact('page'));
     }
 
     /**
@@ -78,8 +98,10 @@ class PageController extends Controller
      * @param  \App\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function remove($id)
     {
-        //
+        $page = Page::find($id);
+        $page->delete();
+        return redirect('dashboard/page');
     }
 }

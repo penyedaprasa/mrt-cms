@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="/assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
         <link rel="stylesheet" href="/assets/js/plugins/dropzone/dist/min/dropzone.min.css">
         <link rel="stylesheet" href="/assets/js/plugins/flatpickr/flatpickr.min.css">
+        <link rel="stylesheet" href="/css/custom.css">
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
         @yield('css_after')
