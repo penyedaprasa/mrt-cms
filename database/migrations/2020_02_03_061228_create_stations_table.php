@@ -22,6 +22,7 @@ class CreateStationsTable extends Migration
             $table->double('longitude')->default(6.03);
             $table->time('time_open')->default('00:00:00');
             $table->time('time_close')->default('00:00:00');
+            $table->integer('lanes')->default(2);
             $table->string('status',10)->default('open');
             $table->timestamps();
         });

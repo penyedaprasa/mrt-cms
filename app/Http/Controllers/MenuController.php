@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Menu;
+use App\Media;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -25,7 +26,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        $medias = Media::all();
+        return view('menu.create',compact('medias'));
     }
 
     /**
@@ -36,28 +38,21 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $menus = Menu::where('title',$request->title)->first();
-        if(empty($menus)){
-            $menus = new Menu();
+        if(!empty($request->id)){
+            $menus = Menu::find($request->id);
             $menus->title = $request->title;
+        } else {
+            $menus = Menu::where('title',$request->title)->first();
+            if(empty($menus)){
+                $menus = new Menu();
+                $menus->title = $request->title;
+            }
         }
         
-        if($request->file('icon')){
-            $path = $request->file('icon')->store('public/icons');
-            $filename='icons/'.basename($path);
-            $menus->icon=$filename;                
-        }
-        if($request->file('image')){
-            $path = $request->file('image')->store('public/images');
-            $filename='images/'.basename($path);
-            $menus->image=$filename;                
-        } 
-        if($request->file('video')){
-            $path = $request->file('video')->store('public/videos');
-            $filename='videos/'.basename($path);
-            $menus->video=$filename;                
-            
-        }
+        $menus->icon=$request->icon;
+        $menus->image=$request->image;
+        $menus->video=$request->video;      
+        
         $menus->action_text = $request->action_text;
         $menus->action_url = $request->action_url;
         $menus->visible = $request->visible;
@@ -83,9 +78,11 @@ class MenuController extends Controller
      * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit(Menu $menu)
+    public function edit($id)
     {
-        //
+        $medias = Media::all();
+        $menu = Menu::find($id);
+        return view('menu.edit',compact('medias','menu'));
     }
 
     /**
@@ -95,9 +92,11 @@ class MenuController extends Controller
      * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function remove($id)
     {
-        //
+        $menu = Menu::find($id);
+        $menu->delete();
+        return redirect('dashboard/menu');
     }
 
     /**

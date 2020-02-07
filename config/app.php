@@ -177,7 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        
+        'Intervention\Image\ImageServiceProvider',
 
     ],
 
@@ -235,6 +235,7 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Toast' => Grimthorr\LaravelToast\Facade::class,
         'Thumbnail' => Lakshmaji\Thumbnail\Facade\Thumbnail::class,
+        'Image' => 'Intervention\Image\Facades\Image',
     ],
 
 ];

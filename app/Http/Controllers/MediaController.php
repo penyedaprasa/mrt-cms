@@ -6,6 +6,7 @@ use App\Media;
 use File;
 use Carbon;
 use Thumbnail;
+use Image;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -72,22 +73,32 @@ class MediaController extends Controller
             $mimes = explode('/',$mimetype);
             if(!empty($file)){
                 if($mimes[0]=='video'){
-                    $timestamp        = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+                    $timestamp        = str_replace([' ', ':'], '-', date('YmdHis'));
                     $file_name        = $timestamp;
                     $thumbnail_path   = public_path().'/storage/images';
                     $thumbnail_image  = "thumb_".$timestamp.".jpg";
                     $water_mark       = public_path().'/media/watermark.png';
                     $time_to_image    = 10;
                     $path = $file->store('public/videos');
-                    // $thumbnail_status = Thumbnail::getThumbnail($path,$thumbnail_path,$thumbnail_image,$time_to_image);
                     $filename='videos/'.basename($path);
+                    $video_path = public_path().'/storage/'.$filename;
+                    $thumbnail_status = Thumbnail::getThumbnail($video_path,$thumbnail_path,$thumbnail_image,$time_to_image);
+                    $media->filename=$filename;
                     $media->thumbnail='images/'.$thumbnail_image; 
                 }
                 if($mimes[0]=='image'){
                     $path = $file->store('public/images');
                     $filename='images/'.basename($path);
+                    $thumbnail_image='images/thumb_'.basename($path);
+                    $destinationPath = public_path('/storage');
+                    $img = Image::make($file->getRealPath());
+                    $img->resize(320, 240, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationPath.'/'.$thumbnail_image);
+                    $media->thumbnail=$thumbnail_image; 
+                    $media->filename=$filename;
                 }
-                $media->filename=$filename;                
+                                
                 $media->mmtype = $mimetype;
             }
             

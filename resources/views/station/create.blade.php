@@ -10,7 +10,7 @@
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">Create</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Station</a>
+                            <a class="link-fx" href="{{route('station.index')}}">Station</a>
                         </li>
                     </ol>
                 </nav>
@@ -58,6 +58,11 @@
                 <div class="form-group">
                 <label for="time_close">Time Close</label>
                 <input type="text" name="time_close" id="time_close" class="js-flatpickr form-control" data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"/></div>
+                <div class="form-group">
+                <label for="lanes">Lanes Count</label>
+                <input type="text" name="lanes" id="lanes" class="form-control"/>
+                </div>
+
                 <div class="form-group">
                 <label for="time_close">Status</label>
                 {!! Helper::create_radio('status',['close','open'],'open') !!}

@@ -10,7 +10,7 @@
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">Update</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Station</a>
+                            <a class="link-fx" href="{{route('station.index')}}">Station</a>
                         </li>
                     </ol>
                 </nav>
@@ -60,7 +60,13 @@
                 <input type="text" name="time_open" id="time_open" class="form-control" value="{{$station->time_open}}"/></div>
                 <div class="form-group">
                 <label for="time_close">Time Close</label>
-                <input type="text" name="time_close" id="time_close" class="form-control" value="{{$station->time_close}}"/></div>
+                <input type="text" name="time_close" id="time_close" class="form-control" 
+                value="{{$station->time_close}}"/></div>
+                <div class="form-group">
+                <label for="lanes">Lanes Count</label>
+                <input type="text" name="lanes" id="lanes" class="form-control" value="{{$station->lanes}}"/>
+                </div>
+
                 <div class="form-group">
                 <label for="time_close">Status</label>
                 {!! Helper::create_radio('status',['close','open'],'open') !!}
@@ -68,7 +74,7 @@
                 </div>
                 <div class="form-group">
                 
-                <button type="submit" class="btn btn-primary">Add Station</button>
+                <button type="submit" class="btn btn-primary">Update Station</button>
                 </div>
                 </form>
                 </div>

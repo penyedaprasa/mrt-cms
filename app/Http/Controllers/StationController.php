@@ -53,6 +53,7 @@ class StationController extends Controller
         $stations->longitude = $request->longitude;
         $stations->time_open = $request->time_open;
         $stations->time_close = $request->time_close;
+        $stations->lanes = $request->lanes;
         $stations->status = $request->status;
         
         $stations->save();

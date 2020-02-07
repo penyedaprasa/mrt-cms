@@ -3,35 +3,54 @@
 .preview-page {
     display: block;
     float: left;
-    width:100%;
+    width:75%;
     height: 640px;
     border: 1px solid #000;
     background-color: aquamarine;
+    padding:20px;
 }
 .preview-frame-image {
     display: block;
     float: left;
     width:100%;
-    height: 300px;
-    margin:10px;
+    height: 240px;
+    margin-top:20px;
     border: 1px solid #000;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 20px;
+    border-radius: 20px;
+    
 }
 .preview-frame-video {
     display: block;
     float: left;
     width:100%;
     height: 240px;
-    margin:10px;
     border-radius: 20px;
     border: 1px solid #000;
     border-radius: 20px;
     border-radius: 20px;
+    
 }
 .row-image-thumbnail{
     display: block;
     width: auto;
     height:80px;
+    border-radius: 10px;
+}
+.preview-icon {
+    display: table;
+    margin:10px auto;
+}
+.banner-text {
+    float: left;
+    display: table;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+}
+.preview-image{
+    display: block;
+    width: 128px;
+    height: auto;
     border-radius: 10px;
 }

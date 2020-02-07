@@ -42,6 +42,8 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/page/edit/{id}','PageController@edit');
   Route::get('/page/remove/{id}','PageController@remove');
   Route::resource('/menu','MenuController');
+  Route::get('/menu/edit/{id}','MenuController@edit');
+  Route::get('/menu/remove/{id}','MenuController@remove');
   Route::resource('/role','RoleController');
   Route::get('/role/edit/{id}','RoleController@edit');
   Route::resource('/sidebar','SidebarMenuController');

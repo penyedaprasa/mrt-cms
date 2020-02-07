@@ -30,10 +30,24 @@
                 </div>
                 <div class="block-content">
                 <table id="menus" class="table table-stripe">
-                <thead> <tr><th>Id</th><th>Title</th><th>Icon</th><th>Image</th><th>Video</th><th>Action_text</th><th>Action_url</th><th>Visible</th><th>Created_at</th><th>Action</th></tr>
+                <thead> <tr><th>Id</th><th>Title</th><th>Icon</th><th>Image</th>
+                <th>Action_text</th><th>Action_url</th><th>Visible</th><th>Action</th></tr>
                 </thead><tbody>
                 @foreach($menus as $item) 
-                <tr><td>{{$item->id}}</td><td>{{$item->title}}</td><td>{{$item->icon}}</td><td>{{$item->image}}</td><td>{{$item->video}}</td><td>{{$item->action_text}}</td><td>{{$item->action_url}}</td><td>{{$item->visible}}</td><td>{{$item->created_at}}</td><td><a class="btn btn-primary" href="{{url('')}}"><i class="fa fa-edit"></i>Edit</a><a class="btn btn-danger"  href="{{url('')}}"><i class="fa fa-trash"></i>Remove</a></td></tr>
+                <tr><td>{{$item->id}}</td><td>{{$item->title}}</td>
+                <td>
+                <img src="{{url('/storage/'.$item->icon)}}" class="row-image-thumbnail"/>
+                </td>
+                <td>
+                    
+                    <img src="{{url('/storage/'.$item->image)}}" class="row-image-thumbnail"/>
+                </td>
+                <td>{{$item->action_text}}</td>
+                <td>{{$item->action_url}}</td><td>{{$item->visible}}</td>
+                <td><div class="btn-group">
+                    <a class="btn btn-sm btn-primary" href="{{url('dashboard/menu/edit/'.$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
+                <a class="btn btn-sm btn-danger"  href="{{url('dashboard/menu/remove/'.$item->id)}}"><i class="fa fa-trash"></i>Remove</a>
+</div></td></tr>
                 @endforeach
                 </tbody>
                 </table>
