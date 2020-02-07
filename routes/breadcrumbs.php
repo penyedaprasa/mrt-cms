@@ -23,17 +23,22 @@ Breadcrumbs::for('home', function ($trail) {
     });
 
 
-// Home > Blog > [Category]
-Breadcrumbs::for('category', function ($trail, $category) {
-    $trail->parent('blog');
-    $trail->push($category->title, route('category', $category->id));
-});
-
-// Home > Blog > [Category] > [Post]
-Breadcrumbs::for('post', function ($trail, $post) {
-    $trail->parent('category', $post->category);
-    $trail->push($post->title, route('post', $post->id));
-});
+// Home > Route
+    // index
+    Breadcrumbs::for('route.index', function ($trail) {
+        $trail->parent('home');
+        $trail->push('Route', route('route.index'));
+    });
+    // create
+    Breadcrumbs::for('route.create', function ($trail) {
+        $trail->parent('route.index');
+        $trail->push('Create', route('route.create'));
+    });
+    // edit
+    Breadcrumbs::for('route.edit', function ($trail, $data) {
+        $trail->parent('route.index');
+        $trail->push('Edit', route('route.edit', $data->id));
+    });
 
 
 
