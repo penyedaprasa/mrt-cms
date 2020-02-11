@@ -1,6 +1,6 @@
 <div class="block">
     <div class="block-header">
-        <h3 class="block-title">Form Input New Train</h3>
+        <h3 class="block-title">Form Input</h3>
     </div>
     <div class="block-content block-content-full">
             <div class="row items-push">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Speed Unit</label>
-                        <input type="number" class="form-control" name="speed_unit" value="{{@$data->speed_unit}}" placeholder="Enter a Train Speed Unit..">
+                        <input type="text" class="form-control" name="speed_unit" value="{{@$data->speed_unit}}" placeholder="Enter a Train Speed Unit..">
                     </div>
                     <div class="form-group">
                         <label for="">Enabled</label>
@@ -47,10 +47,9 @@
                 <div class="col-lg-6 col-xl-5">
                     <label for="val-username">Image Show</label>
                     <div class="options-container">
-                        <img class="img-fluid options-item" id="train-image-show" src="" alt="">
+                    <img class="img-fluid options-item" id="train-image-show" src="{{ @$data->image != null ? url('storage/'.@$data->image) : ""}}" alt="">
                     </div>
                 </div>
-
             </div>
             <div class="row items-push">
                 <div class="col-lg-8">
@@ -75,5 +74,6 @@ function readURL(input) {
 $("#train-image-upload").change(function() {
   readURL(this);
 });
+
 </script>
 @endsection

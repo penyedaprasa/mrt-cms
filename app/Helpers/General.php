@@ -19,7 +19,7 @@ class General
     public static function columnDatatable($datas)
     {
         foreach ($datas as $data) {
-            $columns[] = ['data' => $data, 'name' => $data, 'defaultContent' => ""];
+            $columns[] = ['data' => $data, 'name' => $data];
         }
         return json_encode($columns);
     }

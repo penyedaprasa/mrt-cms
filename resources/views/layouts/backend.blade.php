@@ -23,7 +23,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
         <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
         <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> --}}
+        <link rel="stylesheet" href="/assets/js/plugins/datatables/dataTables.bootstrap4.css">
         <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
         <link rel="stylesheet" href="/assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
         <link rel="stylesheet" href="/assets/js/plugins/select2/css/select2.min.css">
@@ -419,6 +420,7 @@
         <script src="/assets/js/plugins/flatpickr/flatpickr.min.js"></script>
         <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script> --}}
         <script type="text/javascript">
             $(document).ready(function(){
                 @if(!empty($columns))
@@ -433,6 +435,7 @@
                         columns:{!! General::columnDatatable($columns) !!}
                     });
                 @endif
+                $('select').select2();
             });
         </script>
         <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
