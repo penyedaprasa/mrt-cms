@@ -63,7 +63,7 @@
                 <div class="col-lg-6 col-xl-5">
                     <label for="val-username">Image Show</label>
                     <div class="options-container">
-                        <img class="img-fluid options-item" id="train-image-show" src="" alt="">
+                        <img class="img-fluid options-item" id="train-image-show" src="{{ @$data->image != null ? url('storage/'.@$data->image) : ""}}" alt="">
                     </div>
                 </div>
             </div>

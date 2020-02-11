@@ -13,6 +13,7 @@ use App\Station;
 use App\Helpers\General;
 use Illuminate\Support\Facades\DB;
 use JsValidator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -45,7 +46,7 @@ class RouteController extends Controller
      */
     public function index(Request $request)
     {
-        $columns = ['name', 'description', 'stationSource.name', 'stationDestination.name', 'distance', 'time_est','action'];
+        $columns = ['name', 'description', 'stationSource.name', 'stationDestination.name', 'distance', 'time_est', 'image', 'action'];
         if ($request->ajax()) {
             $datas = $this->main_model->with(['stationSource', 'stationDestination'])->select(['*']);;
             return Datatables::of($datas)
@@ -57,6 +58,9 @@ class RouteController extends Controller
                 })
                 ->editColumn('stationDestination.name', function ($data) {
                     return $data->stationDestination->name;
+                })
+                ->addColumn('image', function ($data) {
+                    return '<img src=' . url('storage/' . $data->image) . ' height="75">';
                 })
                 ->escapeColumns(['action'])
                 ->make(true);
@@ -88,6 +92,11 @@ class RouteController extends Controller
         $input = $request->all();
         DB::beginTransaction();
         try {
+            if ($request->file('image')) {
+                $path = $request->file('image')->store('public/images');
+                $filename = 'images/' . basename($path);
+                $input['image'] = $filename;
+            }
             $data = $this->main_model->create($input);
             DB::commit();
             toast()->success('Data berhasil input', $this->title);
@@ -138,6 +147,11 @@ class RouteController extends Controller
         $data = $this->main_model->findOrFail($id);
         DB::beginTransaction();
         try {
+            if ($request->file('image')) {
+                $path = $request->file('image')->store('public/images');
+                $filename = 'images/' . basename($path);
+                $input['image'] = $filename;
+            }
             $data->fill($input)->save();
             DB::commit();
             toast()->success('Data berhasil input', $this->title);
@@ -162,6 +176,9 @@ class RouteController extends Controller
         $data = $this->main_model->findOrFail($id);
         DB::beginTransaction();
         try {
+            if ($data->image != null) {
+                Storage::delete('/public/' . $data->image);
+            }
             $data->delete();
             DB::commit();
             toast()->success('Data berhasil di hapus', $this->title);

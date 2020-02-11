@@ -11,6 +11,7 @@ use App\Train;
 
 use App\Helpers\General;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use JsValidator;
 use Illuminate\Support\Facades\View;
 use Yajra\DataTables\Facades\DataTables;
@@ -42,13 +43,16 @@ class TrainController extends Controller
      */
     public function index(Request $request)
     {
-        $columns = ['train_code','name','train_type','speed','speed_unit','status','action'];
+        $columns = ['train_code','name','train_type','speed','speed_unit','image','action'];
 
         if ($request->ajax()) {
             $datas = $this->main_model->select(["*"]);
             return Datatables::of($datas)
                 ->addColumn('action', function ($data) {
                     return view($this->view . '.action', compact('data'));
+                })
+                ->addColumn('image', function ($data){
+                    return '<img src='.url('storage/' . $data->image).' height="75">';
                 })
                 ->escapeColumns(['actions'])
                 ->make(true);
@@ -81,6 +85,11 @@ class TrainController extends Controller
         // dd($input);
         DB::beginTransaction();
         try {
+            if ($request->file('image')) {
+                $path = $request->file('image')->store('public/images');
+                $filename = 'images/' . basename($path);
+                $input['image'] = $filename;
+            }
             $data = $this->main_model->create($input);
             DB::commit();
             toast()->success('Data berhasil input', $this->title);
@@ -132,6 +141,11 @@ class TrainController extends Controller
         $data = $this->main_model->findOrFail($id);
         DB::beginTransaction();
         try {
+            if ($request->file('image')) {
+                $path = $request->file('image')->store('public/images');
+                $filename = 'images/' . basename($path);
+                $input['image'] = $filename;
+            }
             $data->fill($input)->save();
             DB::commit();
             toast()->success('Data berhasil input', $this->title);
@@ -156,6 +170,9 @@ class TrainController extends Controller
         $data = $this->main_model->findOrFail($id);
         DB::beginTransaction();
         try {
+            if ($data->image != null) {
+                Storage::delete('/public/'.$data->image);
+            }
             $data->delete();
             DB::commit();
             toast()->success('Data berhasil di hapus', $this->title);

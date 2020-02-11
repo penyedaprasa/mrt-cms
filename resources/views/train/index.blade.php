@@ -31,7 +31,7 @@
                             <th>Train Type </th>
                             <th>Speed</th>
                             <th>Speed_unit</th>
-                            <th>status</th>
+                            <th>Image</th>
                             <th>action</th>
                         </tr>
                     </thead>

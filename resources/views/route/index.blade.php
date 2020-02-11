@@ -27,11 +27,12 @@
                     <thead>
                         <tr role="row">
                             <th width="15%">Name</th>
-                            <th width="25%">Description</th>
+                            <th width="20%">Description</th>
                             <th>Source</th>
                             <th>Destination</th>
                             <th width="8%">Distance</th>
                             <th width="8%">Time Est</th>
+                            <th>Image</th>
                             <th width="15%">Action</th>
                         </tr>
                     </thead>
