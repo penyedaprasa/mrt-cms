@@ -54,13 +54,17 @@
                 </div>
                 <div class="form-group">
                 <label for="time_open">Time Open</label>
-                <input type="text" name="time_open" id="time_open" class="js-flatpickr form-control" data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"/></div>
+                <input type="text" name="time_open" id="time_open" class="js-flatpickr form-control" 
+                data-enable-time="true" data-no-calendar="true" data-date-format="H:i" 
+                data-time_24hr="true" value="05:00"/></div>
                 <div class="form-group">
                 <label for="time_close">Time Close</label>
-                <input type="text" name="time_close" id="time_close" class="js-flatpickr form-control" data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"/></div>
+                <input type="text" name="time_close" id="time_close" class="js-flatpickr form-control" 
+                data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"
+                value="23:00"/></div>
                 <div class="form-group">
                 <label for="lanes">Lanes Count</label>
-                <input type="text" name="lanes" id="lanes" class="form-control"/>
+                <input type="text" name="lanes" id="lanes" class="form-control" value="2"/>
                 </div>
 
                 <div class="form-group">

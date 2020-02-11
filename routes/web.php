@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/schedule/{station}', 'HomeController@schedule');
 
 Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/','DashboardController@index')->name('dashboard.index');
@@ -44,6 +45,13 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::resource('/menu','MenuController');
   Route::get('/menu/edit/{id}','MenuController@edit');
   Route::get('/menu/remove/{id}','MenuController@remove');
+  Route::get('/trainschedule','ScheduleController@index')->name('trainschedule.index');
+  Route::post('/trainschedule','ScheduleController@store')->name('trainschedule.store');
+  Route::get('/trainschedule/create/{id}','ScheduleController@create');
+  Route::get('/trainschedule/edit/{id}','ScheduleController@edit');
+  Route::get('/trainschedule/remove/{train}/{station}/{hour}','ScheduleController@remove');
+  Route::get('/trainschedule/update','ScheduleController@update')->name('trainschedule.update');
+  Route::post('/trainschedule/update','ScheduleController@update')->name('trainschedule.update');
   Route::resource('/role','RoleController');
   Route::get('/role/edit/{id}','RoleController@edit');
   Route::resource('/sidebar','SidebarMenuController');

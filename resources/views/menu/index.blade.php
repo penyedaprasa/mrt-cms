@@ -31,7 +31,7 @@
                 <div class="block-content">
                 <table id="menus" class="table table-stripe">
                 <thead> <tr><th>Id</th><th>Title</th><th>Icon</th><th>Image</th>
-                <th>Action_text</th><th>Action_url</th><th>Visible</th><th>Action</th></tr>
+                <th>Action Text</th><th>Action Url</th><th>Visible</th><th>Action</th></tr>
                 </thead><tbody>
                 @foreach($menus as $item) 
                 <tr><td>{{$item->id}}</td><td>{{$item->title}}</td>
