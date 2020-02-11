@@ -150,9 +150,12 @@
                         </div>
                         <div class="block-content block-content-full text-right border-top">
                             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+                            <button type="button" id="btn_remove"
+                            class="btn btn-sm btn-primary" 
+                            data-dismiss="modal"><i class="fa fa-trash"></i>Remove</button>
                             <button type="button" onclick="javascript:$('#update-minute').submit();" 
                             class="btn btn-sm btn-primary" 
-                            data-dismiss="modal"><i class="fa fa-check mr-1"></i>Update Jadwal</button>
+                            data-dismiss="modal"><i class="fa fa-check mr-1"></i>Update</button>
                         </div>
                     </div>
                 </div>
@@ -160,6 +163,7 @@
     </div>       
 @endsection    
 @section('js_after')
+<script src="/assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
 <script type="text/javascript">
 $('#minute').on('blur',function(){
     var val = $(this).val();
@@ -191,6 +195,11 @@ $('#add-minute').submit(function(e){
         }
         html+='</div>';
         $('#row_'+hour).append(html);
+        if(json.status){
+            One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: json.message});
+        } else {
+            One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: json.message});
+        }
     });
 });
 $('[rel="remmin"]').click(function(e){
@@ -234,7 +243,26 @@ $('#update-minute').submit(function(e){
         if(minute!==minute2){
             $('#group_'+schedule.id).append('<button class="btn btn-sm btn-danger">'+minute2+'</button>');
         }
+        if(json.status){
+            One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: json.message});
+        } else {
+            One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: json.message});
+        }
     });
 });
+$('#btn_remove').click(function(e){
+    var sid = $('#schedule_id').val();
+    var URL = "{{url('/dashboard/trainschedule/delete')}}/"+sid;
+    $.ajax({url:URL,type:'GET'}).done(function(json){
+        
+        if(json.status){
+            $('#group_'+sid).empty();
+            One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: json.message});
+        } else {
+            One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: json.message});
+        }
+    });
+    
+})
 </script>
 @endsection

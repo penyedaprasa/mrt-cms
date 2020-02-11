@@ -36,7 +36,7 @@
 <th>Action</th></tr>
 </thead><tbody>
 @foreach($stations as $item) 
-<tr><td>{{$item->id}}</td>
+<tr><td>{{$item->nomor}}</td>
 <td><p>{{$item->name}}</p>
     <small>created at : {{$item->created_at}}</small>
 </td><td><p>{{$item->description}}</p>

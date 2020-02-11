@@ -116,7 +116,7 @@
                             @endif
                             </div>
                             @endforeach
-</div>
+                        </div>
                         </div>
                         <div class="block-content block-content-full text-right border-top">
                             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>

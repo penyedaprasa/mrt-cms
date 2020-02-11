@@ -14,7 +14,7 @@ class StationController extends Controller
      */
     public function index()
     {
-        $stations = Station::all();
+        $stations = Station::orderBy('nomor','ASC')->get();
         return view('station.index',compact('stations'));
     }
 
@@ -36,13 +36,13 @@ class StationController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $stations = Station::where('name',$request->name)->first();
-        if(empty($stations)){
+        if(!empty($request->id)){
+            $stations = Station::find($request->id);
+            
+        } else {
             $stations = new Station();
-            $stations->name = $request->name;
         }
-        
+        $stations->name = $request->name;
         $stations->description = $request->description;
         if($request->file('image')){
             $path = $request->file('image')->store('public/images');
@@ -54,6 +54,7 @@ class StationController extends Controller
         $stations->time_open = $request->time_open;
         $stations->time_close = $request->time_close;
         $stations->lanes = $request->lanes;
+        $stations->nomor = $request->nomor;
         $stations->status = $request->status;
         
         $stations->save();
@@ -101,8 +102,12 @@ class StationController extends Controller
      * @param  \App\Station  $station
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Station $station)
+    public function remove($id)
     {
-        //
+        if(!empty($id)){
+            $station=Station::find($id);
+            $station->delete();
+        }
+        return redirect('dashboard/station');
     }
 }
