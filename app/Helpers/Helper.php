@@ -2,7 +2,9 @@
 namespace App\Helpers;
 
 use App\SidebarMenu;
+use App\Station;
 use App\RolePrivilege;
+use App\TrainSchedule;
 use Illuminate\Support\Facades\DB;
 class Helper {
   public static function create_radio($key,$options,$value){
@@ -93,7 +95,39 @@ class Helper {
       }
     } else {
       return 'N';
+    } 
+  }
+  public static function getMinutes($train,$source,$destination,$hour){
+      $minutes = TrainSchedule::where('station_id',$source)
+              ->where('destination',$destination)
+              ->where('train_id',$train)
+              ->where('departure_hour',$hour)->get();
+      return $minutes;        
+  }
+  public static function selectStations($key,$value){
+    $stations = Station::orderBy('name','ASC')->get();
+    $html = "<select name=\"$key\" class=\"form-control select\">";
+    foreach($stations as $stat){
+      if($stat->id==$value){
+        $html.="<option value=\"{$stat->id}\" selected>{$stat->name}</option>";
+      } else {
+        $html.="<option value=\"{$stat->id}\">{$stat->name}</option>";
+      }
     }
-    
-}
+    $html.="</select>";
+    return $html;
+  }
+  public static function selectStationNotIn($key,$not,$value){
+    $stations = Station::where('id','!=',$not)->orderBy('name','ASC')->get();
+    $html = "<select name=\"$key\" class=\"form-control select\">";
+    foreach($stations as $stat){
+      if($stat->id==$value){
+        $html.="<option value=\"{$stat->id}\" selected>{$stat->name}</option>";
+      } else {
+        $html.="<option value=\"{$stat->id}\">{$stat->name}</option>";
+      }
+    }
+    $html.="</select>";
+    return $html;
+  }
 }

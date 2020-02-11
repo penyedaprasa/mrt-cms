@@ -54,3 +54,8 @@
     height: auto;
     border-radius: 10px;
 }
+.row-title {
+    display:table;
+    margin:0px auto;
+    text-align: center;
+}

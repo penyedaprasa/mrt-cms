@@ -25,12 +25,13 @@
 
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
+        <link rel="stylesheet" href="/css/custom.css">
         @yield('css_after')
 
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
     </head>
-    <body>
+    <body >
         <!-- Page Container -->
         <!--
             Available classes for #page-container:
