@@ -14,7 +14,8 @@ class ScheduleController extends Controller {
         $destinations = array();
         foreach($dests as $dest){
             $schedules = TrainSchedule::where('station_id',$dest->station_id)
-            ->where('destination',$dest->destination)->get();
+            ->where('destination',$dest->destination)
+            ->orderBy('departure_hour','ASC')->get();
             $destinations[]=array('destination'=>$dest,
                 'schedules'=>$schedules);
         }

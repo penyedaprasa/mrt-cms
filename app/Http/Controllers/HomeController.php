@@ -23,15 +23,12 @@ class HomeController extends Controller
     }
     public function schedule(Request $request,$id)
     {
-        $station = Station::find($id);
+        $source = Station::find($id);
         $train = Train::find(1);
-        $schedule = DB::table('v_train_schedule_routes')->where('destination',$id)->where('train_id',$train->id)->first();
-        if(!empty($schedule)){
-            $fromstation = Station::find($schedule->station_id);
-        } else {
-            $fromstation='';
-        }
+        $destinations = DB::table('v_source_destinations')->where('station_id',$id)
+        ->get();
         
-        return view('schedule',compact('station','schedule','fromstation','train'));
+        
+        return view('schedule',compact('source','destinations','train'));
     }
 }

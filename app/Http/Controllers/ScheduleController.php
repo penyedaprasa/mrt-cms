@@ -30,7 +30,7 @@ class ScheduleController extends Controller
     public function create($id)
     {
         $train=Train::find($id);
-        $stations = Station::all();
+        $stations = Station::orderBy('nomor','ASC')->get();
         return view('schedule.create',compact('train','stations'));
     }
 
@@ -136,5 +136,16 @@ class ScheduleController extends Controller
             $msg = array('status'=>false,'message'=>'Menambahkan jadwal gagal!');
         }
         return response()->json($msg)->setEncodingOptions(JSON_NUMERIC_CHECK);
+    }
+    public function delete($id){
+        if(!empty($id)){
+            $schedule = TrainSchedule::find($id);
+            $schedule->delete();
+            $msg = array('status'=>true,'message'=>'Menghapus Jadwal Sukses!');    
+        } else {
+            $msg = array('status'=>false,'message'=>'Jadwal Tidak Ada!');    
+        }
+        return response()->json($msg)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
     }
 }

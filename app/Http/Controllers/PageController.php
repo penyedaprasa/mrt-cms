@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\Media;
+use App\PageImage;
+use App\PageVideo;
+use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
@@ -25,7 +30,9 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('page.create');
+        $videos = DB::table('media')->where('mmtype','like','video%')->get();
+        $images = DB::table('media')->where('mmtype','like','image%')->get();
+        return view('page.create',compact('videos','images'));
     }
 
     /**
@@ -52,7 +59,40 @@ class PageController extends Controller
             $pages->created_at = $request->created_at;
             $pages->updated_at = $request->updated_at;
             $pages->save();
-            $msg = array('status'=>true,'Menambahkan Halaman Sukses!','page'=>$pages);
+            if(!empty($request->video)){
+                $i=0;
+                DB::table('page_videos')->where('page_id',$pages->id)->delete();
+            foreach($request->video as $video){
+                $pvideo = PageVideo::where('page_id',$pages->id)->where('video_url',$video)->first();
+                if(empty($pvideo)){
+                    $pvideo = new PageVideo();
+                    $pvideo->page_id=$pages->id;
+                    $pvideo->video_url=$video;
+                }
+                
+                $pvideo->list_order = $i;
+                $pvideo->save();
+                $i++;
+            }
+            }
+            if(!empty($request->image)){
+                $i=0;
+                DB::table('page_images')->where('page_id',$pages->id)->delete();
+            foreach($request->image as $image){
+                $pimage = PageImage::where('page_id',$pages->id)->where('image_url',$image)->first();
+                if(empty($pimage)){
+                    $pimage = new PageImage();
+                    $pimage->page_id=$pages->id;
+                    $pimage->image_url=$image;
+                }
+                
+                $pimage->list_order = $i;
+                $pimage->save();
+                $i++;
+            }
+            }
+            
+            $msg = array('status'=>true,'message'=>'Update Halaman Sukses!','page'=>$pages);
         }    
         return response()->json($msg);
     }
@@ -77,7 +117,11 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::find($id);
-        return view('page.edit',compact('page'));
+        $page_videos = PageVideo::where('page_id',$id)->get();
+        $page_images = PageImage::where('page_id',$id)->get();
+        $videos = DB::table('media')->where('mmtype','like','video%')->get();
+        $images = DB::table('media')->where('mmtype','like','image%')->get();
+        return view('page.edit',compact('page','videos','images','page_videos','page_images'));
     }
 
     /**

@@ -66,7 +66,10 @@
                 <label for="lanes">Lanes Count</label>
                 <input type="text" name="lanes" id="lanes" class="form-control" value="2"/>
                 </div>
-
+                <div class="form-group">
+                <label for="nomor">Nomor</label>
+                <input type="text" name="nomor" id="nomor" class="form-control" value="2"/>
+                </div>
                 <div class="form-group">
                 <label for="time_close">Status</label>
                 {!! Helper::create_radio('status',['close','open'],'open') !!}

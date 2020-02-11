@@ -40,8 +40,8 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/media/edit/{id}','MediaController@edit');
   Route::get('/media/remove/{id}','MediaController@remove');
   Route::resource('/page','PageController');
-  Route::get('/page/edit/{id}','PageController@edit');
-  Route::get('/page/remove/{id}','PageController@remove');
+  Route::get('/page/edit/{id}','PageController@edit')->name('page.edit');
+  Route::get('/page/remove/{id}','PageController@remove')->name('page.remove');
   Route::resource('/menu','MenuController');
   Route::get('/menu/edit/{id}','MenuController@edit');
   Route::get('/menu/remove/{id}','MenuController@remove');
@@ -50,6 +50,7 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/trainschedule/create/{id}','ScheduleController@create');
   Route::get('/trainschedule/edit/{id}','ScheduleController@edit');
   Route::get('/trainschedule/remove/{train}/{station}/{hour}','ScheduleController@remove');
+  Route::get('/trainschedule/delete/{id}','ScheduleController@delete')->name('trainschedule.delete');
   Route::get('/trainschedule/update','ScheduleController@update')->name('trainschedule.update');
   Route::post('/trainschedule/update','ScheduleController@update')->name('trainschedule.update');
   Route::resource('/role','RoleController');
