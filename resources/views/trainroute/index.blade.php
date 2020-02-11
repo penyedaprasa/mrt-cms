@@ -5,14 +5,9 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-sm-fill h3 my-2">Train Route</h1>
+            <h1 class="flex-sm-fill h3 my-2">{{$title}}</h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Train Route</a>
-                        </li>
-                    </ol>
+                   {{ Breadcrumbs::render('train.index') }}
                 </nav>
             </div>
        </div>
@@ -21,25 +16,29 @@
 
     <!-- Page Content -->
     <div class="content">
-        <div class="row">
-            <div class="col-md-12 col-xl-12">
-            <div class="block">
-                <div class="block-header">
-
-                </div>
-                <div class="block-content">
-                <table id="train_routes" class="table table-stripe">
-                <thead> <tr><th>Id<th><th>Train_id<th><th>Route_id<th><th>Arrival<th><th>Departure<th><th>Created_at<th><th>Updated_at<th><th>Action</th></tr>
-                </thead><tbody>
-                @foreach($train_routes as $item) 
-                <tr><td>{{$item->id}}<td><td>{{$item->name}}<td><td>{{$item->route_id}}<td><td>{{$item->arrival}}<td><td>{{$item->departure}}<td><td>{{$item->created_at}}<td><td>{{$item->updated_at}}<td></tr>
-                @endforeach
-                </tbody>
+        <!-- Dynamic Table Full -->
+        <div class="block">
+            <div class="block-header">
+                <h3 class="block-title">{{$title}}<small>Table</small></h3>
+            </div>
+            <div class="block-content">
+                <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
+                <table id="datatable" class="table table-bordered table-striped table-vcenter js-dataTable-full dataTable no-footer">
+                    <thead>
+                        <tr role="row">
+                            <th>Train</th>
+                            <th>Route Destination</th>
+                            <th>Arrival</th>
+                            <th>Departure</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
-                </div>
-                </div>
             </div>
         </div>
+        <!-- END Dynamic Table Full -->
     </div>
     <!-- END Page Content -->
 @endsection
