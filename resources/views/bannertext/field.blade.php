@@ -7,7 +7,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="">Banner Content<span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="banner" name="banner" value="{{@$data->banner}}" rows="4" placeholder="Banner content.."></textarea>
+                        <textarea class="form-control" id="banner" name="banner" rows="4" placeholder="Banner content..">{{@$data->banner}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="">Valid Until<span class="text-danger">*</span></label>
