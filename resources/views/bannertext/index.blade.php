@@ -7,7 +7,7 @@
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
             <h1 class="flex-sm-fill h3 my-2">{{$title}}</h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
-                   {{ Breadcrumbs::render('train.index') }}
+                   {{ Breadcrumbs::render('bannertext.index') }}
                 </nav>
             </div>
        </div>
@@ -26,10 +26,8 @@
                 <table id="datatable" class="table table-bordered table-striped table-vcenter js-dataTable-full dataTable no-footer">
                     <thead>
                         <tr role="row">
-                            <th>Train</th>
-                            <th>Route Destination</th>
-                            <th>Arrival</th>
-                            <th>Departure</th>
+                            <th width="60%">Banner Content</th>
+                            <th>Valid Until</th>
                             <th>action</th>
                         </tr>
                     </thead>
