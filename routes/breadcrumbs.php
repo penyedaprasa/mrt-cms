@@ -40,5 +40,22 @@ Breadcrumbs::for('home', function ($trail) {
         $trail->push('Edit', route('route.edit', $data->id));
     });
 
+// Home > Route
+    // index
+    Breadcrumbs::for('bannertext.index', function ($trail) {
+        $trail->parent('home');
+        $trail->push('Route', route('bannertext.index'));
+    });
+    // create
+    Breadcrumbs::for('bannertext.create', function ($trail) {
+        $trail->parent('bannertext.index');
+        $trail->push('Create', route('bannertext.create'));
+    });
+    // edit
+    Breadcrumbs::for('bannertext.edit', function ($trail, $data) {
+        $trail->parent('bannertext.index');
+        $trail->push('Edit', route('bannertext.edit', $data->id));
+    });
+
 
 
