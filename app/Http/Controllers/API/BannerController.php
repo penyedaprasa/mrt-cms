@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Banner;
+use App\BannerText;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
@@ -24,9 +25,11 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function text()
     {
-        //
+        $banners = BannerText::all();
+        $msg = array('status'=>true,'banner_text'=>$banners,'message'=>'Get All Banner Text');
+        return response()->json($msg);
     }
 
     /**

@@ -24,7 +24,7 @@ class BannerTextController extends Controller
 
     public function __construct(BannerText $main_model)
     {
-        $this->title        = "Banner Text Management";
+        $this->title        = "Banner Text";
         $this->model        = "BannerText";
         $this->view         = "bannertext";
         $this->main_model   = $main_model;
@@ -44,8 +44,9 @@ class BannerTextController extends Controller
     public function index(Request $request)
     {
         $columns = ['banner', 'valid_until', 'action'];
+        $datas = $this->main_model->select(['*']);;
         if ($request->ajax()) {
-            $datas = $this->main_model->select(['*']);;
+            
             return Datatables::of($datas)
                 ->addColumn('action', function ($data) {
                     return view($this->view . '.action', compact('data'));

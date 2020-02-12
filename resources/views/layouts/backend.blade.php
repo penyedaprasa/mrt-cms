@@ -127,15 +127,27 @@
                                 <i class="nav-main-link-icon fa fa-map"></i>
                                 <span class="nav-main-link-name">Page</span>
                             </a>
-                            <a class="nav-main-link" href="{{route('banner.index')}}">
-                                <i class="nav-main-link-icon si si-layers"></i>
-                                <span class="nav-main-link-name">Banner</span>
-                            </a>
                             <a class="nav-main-link" href="{{route('menu.index')}}">
                                 <i class="nav-main-link-icon si si-grid"></i>
                                 <span class="nav-main-link-name">Menu</span>
                             </a>
                         </li>
+                        <li class="nav-main-item">
+                        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" 
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="nav-main-link-icon si si-layers"></i>
+                        <span class="nav-main-link-name">Banner</span></a>
+                                <ul class="nav-main-submenu">
+                                    <li><a class="nav-main-link" href="{{route('banner.index')}}">
+                                    <i class="nav-main-link-icon fa fa-file-image"></i>
+                                <span class="nav-main-link-name">Image/Video</span></a>
+                                </li>
+                                <li><a class="nav-main-link" href="{{route('bannertext.index')}}">
+                                    <i class="nav-main-link-icon fa fa-file-code"></i>
+                                <span class="nav-main-link-name">Text</span></a>
+                                </li>
+                                </ul>
+                        </li>    
                     </ul>
                 </div>
                 <!-- END Side Navigation -->

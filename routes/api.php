@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/banner','API\BannerController@index');
+Route::get('/banner/media','API\BannerController@index');
+Route::get('/banner/text','API\BannerController@text');
 Route::get('/menu','API\MenuController@index');
 Route::get('/station','API\StationController@index');
 Route::get('/schedule/{station}','API\ScheduleController@index');
