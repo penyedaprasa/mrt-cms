@@ -86,8 +86,9 @@
                 <div class="banner-text"><marquee id="banner_text_here">{{$page->banner_text}}</marquee></div>
                 
                 <div class="video-container">
-                <video id="video_player" controls poster="{{ url('/media/icon_video.png')}}" width="320" height="240" playsinline>
-                <source src="" type="video/mp4">
+                <video id="video_player" controls poster="{{ url('/media/icon_video.png')}}" 
+                width="320" height="240" playsinline autoplay>
+                <source src="{{url('/storage/'.$page_videos[0]->video_url)}}" type="video/mp4">
                 </video>      
                 </div>        
                 

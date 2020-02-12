@@ -21,3 +21,5 @@ Route::get('/menu','API\MenuController@index');
 Route::get('/station','API\StationController@index');
 Route::get('/schedule/{station}','API\ScheduleController@index');
 Route::get('/schedule/{station}/hour/{hour}','API\ScheduleController@hours');
+Route::get('/page/index','API\PageController@index');
+Route::get('/page/media/{id}','API\PageController@media');

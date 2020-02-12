@@ -58,3 +58,6 @@
     </div>
     <!-- END Page Content -->
 @endsection
+@section('js_after')
+<script src="/assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+@endsection

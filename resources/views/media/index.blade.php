@@ -25,7 +25,7 @@
         <div class="row items-push">
                 
 @foreach($medias as $item) 
-<div class="col-md-4 animated fadeIn">
+<div class="col-md-3 animated fadeIn">
 <div class="options-container fx-item-zoom-in fx-overlay-slide-right">
     @if($item->thumbnail=='')
     <img class="img-fluid options-item" src="{{url('/storage/'.$item->filename)}}" alt="{{$item->caption}}"/>
