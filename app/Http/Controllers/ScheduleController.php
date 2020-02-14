@@ -31,6 +31,7 @@ class ScheduleController extends Controller
     {
         $train=Train::find($id);
         $stations = Station::orderBy('nomor','ASC')->get();
+        
         return view('schedule.create',compact('train','stations'));
     }
 

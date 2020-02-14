@@ -151,7 +151,7 @@
                         <div class="block-content block-content-full text-right border-top">
                             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
                             <button type="button" id="btn_remove"
-                            class="btn btn-sm btn-primary" 
+                            class="btn btn-sm btn-danger" 
                             data-dismiss="modal"><i class="fa fa-trash"></i>Remove</button>
                             <button type="button" onclick="javascript:$('#update-minute').submit();" 
                             class="btn btn-sm btn-primary" 
@@ -211,10 +211,12 @@ $('[rel="remmin"]').click(function(e){
         var URL = "{{url('dashboard/trainschedule/remove')}}/"+train+"/"+station+"/"+hour;
     $.ajax({url:URL,type:'GET'}).done(function(json){
         if(json.status){
-            
+            One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: json.message}); 
             $('#row_'+hour).empty();
+        } else {
+            One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: json.message});
         }
-        alert(json.message);
+        
     });
     }
     

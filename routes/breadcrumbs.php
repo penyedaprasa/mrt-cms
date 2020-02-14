@@ -44,7 +44,7 @@ Breadcrumbs::for('home', function ($trail) {
     // index
     Breadcrumbs::for('bannertext.index', function ($trail) {
         $trail->parent('home');
-        $trail->push('Route', route('bannertext.index'));
+        $trail->push('Banner Text', route('bannertext.index'));
     });
     // create
     Breadcrumbs::for('bannertext.create', function ($trail) {

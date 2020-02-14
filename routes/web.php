@@ -59,6 +59,8 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/sidebar/remove/{id}','SidebarMenuController@destroy');
   Route::post('/profile/update','UserController@update');
   Route::resource('bannertext', 'BannerTextController');
+  Route::resource('holiday', 'HolidayController');
+  Route::get('holiday/remove/{id}', 'HolidayController@remove')->name('holiday.destroy');
 });
 
 Auth::routes();

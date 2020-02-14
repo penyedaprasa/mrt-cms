@@ -104,6 +104,14 @@ class Helper {
               ->where('departure_hour',$hour)->get();
       return $minutes;        
   }
+  public static function getDestinationCount($stationid){
+    $count = DB::table('v_source_destinations')->where('station_id',$stationid)->count();
+    return $count;
+  }
+  public static function getDestinations($stationid){
+    $counts = DB::table('v_source_destinations')->where('station_id',$stationid)->get();
+    return $counts;
+  }
   public static function selectStations($key,$value){
     $stations = Station::orderBy('name','ASC')->get();
     $html = "<select name=\"$key\" class=\"form-control select\">";
@@ -119,12 +127,12 @@ class Helper {
   }
   public static function selectStationNotIn($key,$not,$value){
     $stations = Station::where('id','!=',$not)->orderBy('name','ASC')->get();
-    $html = "<select name=\"$key\" class=\"form-control select\">";
+    $html = "<select name=\"$key\" id=\"$key\" class=\"form-control\">";
     foreach($stations as $stat){
       if($stat->id==$value){
-        $html.="<option value=\"{$stat->id}\" selected>{$stat->name}</option>";
+        $html.="<option value=\"{$stat->id}\" selected>{$stat->name}</option>\r\n";
       } else {
-        $html.="<option value=\"{$stat->id}\">{$stat->name}</option>";
+        $html.="<option value=\"{$stat->id}\">{$stat->name}</option>\r\n";
       }
     }
     $html.="</select>";

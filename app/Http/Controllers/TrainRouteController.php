@@ -50,8 +50,9 @@ class TrainRouteController extends Controller
     public function index(Request $request)
     {
         $columns = ['route.name', 'train.name', 'arrival', 'departure', 'action'];
+        $datas = $this->main_model->with(['route', 'train'])->select(['*']);;
         if ($request->ajax()) {
-            $datas = $this->main_model->with(['route', 'train'])->select(['*']);;
+            
             return Datatables::of($datas)
                 ->addColumn('action', function ($data) {
                     return view($this->view . '.action', compact('data'));
