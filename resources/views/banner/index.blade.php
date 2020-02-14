@@ -30,17 +30,34 @@
                 </div>
                 <div class="block-content">
                 <table id="banners" class="table table-stripe">
-<thead> <tr><th>Id</th><th>Name</th><th>Url</th><th>Visible</th><th>Created_at</th><th>Action</th></tr>
-</thead><tbody>
-@foreach($banners as $item) 
-<tr><td>{{$item->id}}</td><td>{{$item->name}}</td><td>{{$item->url}}</td><td>{{$item->visible}}</td>
-<td>{{$item->created_at}}</td>
-<td><div class="btn-group"><a class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>Edit</a><a class="btn btn-sm btn-danger">
-<i class="fa fa-trash"></i>Remove</a></div></td></tr>
-@endforeach
-</tbody>
-</table>
-
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Url</th>
+                            <th>Visible</th>
+                            <th>Created_at</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($banners as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->url}}</td>
+                            <td>{{$item->visible}}</td>
+                            <td>{{$item->created_at}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="{{route('banner.edit',$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
+                                    {{-- <a class="btn btn-danger"  href="{{route('banner.remove',$item->id)}}"><i class="fa fa-trash"></i>Remove</a> --}}
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 </div>
                 </div>
             </div>

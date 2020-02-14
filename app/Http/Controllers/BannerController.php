@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Banner;
+use App\Media;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
@@ -25,7 +26,9 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('banner.create');
+        $videos = Media::where('mmtype', 'like', 'video%')->get();
+        $images = Media::where('mmtype', 'like', 'image%')->get();
+        return view('banner.create')->with(compact('videos','images'));
     }
 
     /**
@@ -42,22 +45,23 @@ class BannerController extends Controller
             $banners = new Banner();
             $banners->name = $request->name;
         }
-        
-        if($request->file('image')){
-            $path = $request->file('image')->store('public/images');
-            $filename='images/'.basename($path);
-            $banners->image=$filename;                
-        } 
-        if($request->file('video')){
-            $path = $request->file('video')->store('public/videos');
-            $filename='videos/'.basename($path);
-            $banners->video=$filename;                
-            
-        }
-        
+
+        // if($request->file('image')){
+        //     $path = $request->file('image')->store('public/images');
+        //     $filename='images/'.basename($path);
+        //     $banners->image=$filename;
+        // }
+        // if($request->file('video')){
+        //     $path = $request->file('video')->store('public/videos');
+        //     $filename='videos/'.basename($path);
+        //     $banners->video=$filename;
+
+        // }
+        $banners->image = $request->image;
+        $banners->video = $request->video;
         $banners->url = $request->url;
         $banners->visible = $request->visible;
-         
+
         $banners->save();
         return redirect('dashboard/banner');
     }
@@ -79,9 +83,13 @@ class BannerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function edit(Banner $banner)
+    public function edit($id)
     {
         //
+        $banner = Banner::find($id);
+        $videos = Media::where('mmtype', 'like', 'video%')->get();
+        $images = Media::where('mmtype', 'like', 'image%')->get();
+        return view('banner.edit')->with(compact('banner','videos','images'));
     }
 
     /**

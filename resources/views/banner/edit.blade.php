@@ -19,7 +19,7 @@
     </div>
     <!-- END Hero -->
 
-    <!-- Page Content -->
+    <!-- END Page Content -->
     <div class="content">
         <div class="row">
             <div class="col-md-8 col-xl-8">
@@ -30,32 +30,23 @@
                 <div class="block-content">
                 <form id="form_banners" class="form" role="form" action="{{route('banner.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" id="videoMedia" name="video" value="{{@$banner->video}}"/>
+                <input type="hidden" id="imageMedia" name="image" value="{{@$banner->image}}"/>
                 <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control"/></div>
+                <input type="text" name="name" id="name" value="{{@$banner->name}}" class="form-control"/></div>
                 <div class="form-group">
-                <label for="image">Image</label>
-                <div class="custom-file">
-                <input type="file" name="image" id="image" class="custom-file-input"/>
-                <label class="custom-file-label" for="image">Choose Thumbnail</label>
-                </div>
-                </div>
-                <div class="form-group">
-                <label for="video">Video</label>
-                <div class="custom-file">
-                <input type="file" name="video" id="video" class="custom-file-input"/>
-                <label class="custom-file-label" for="video">Choose Video</label>
-                </div>
+                <label for="image">Media</label>
+                    <div class="custom-file">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#video-gallery">Add Media</button>
+                    </div>
                 </div>
                 <div class="form-group">
                 <label for="url">Url</label>
-                <input type="text" name="url" id="url" class="form-control"/></div>
+                <input type="text" name="url" id="url" value="{{@$banner->url}}" class="form-control"/></div>
                 <div class="form-check form-check-inline">
                 <label for="enabled1" class="form-check-label">Visible : </label>
-                    <input type="radio" name="visible" value="Y" class="form-check-input" checked/>
-                    Yes
-                    <input type="radio" name="visible" value="N" class="form-check-input"/>
-                    No
+                     {!! Helper::create_radio('visible',array('Y','N'),@$banner->visible)!!}
                 </div>
 
                 <div class="py-3">
@@ -74,4 +65,61 @@
         </div>
     </div>
     <!-- END Page Content -->
+    <div class="modal fade" id="video-gallery" tabindex="-1" role="dialog" aria-labelledby="modal-block-fromleft" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-fromleft" role="document">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-primary-dark">
+                            <h3 class="block-title">Choose Media</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-fw fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content font-size-sm">
+                            <div class="row">
+                            @foreach($videos as $media)
+                                <div class="col-md-4">
+                                <img src="{{url('/storage/'.$media->thumbnail)}}" data-file="{{$media->filename}}"
+                                data-id="{{$media->id}}" data-target="" rel="video" class="preview-image"/>
+                                </div>
+                            @endforeach
+                            @foreach($images as $media)
+                                <div class="col-md-4">
+                                <img src="{{url('/storage/'.$media->filename)}}" data-file="{{$media->filename}}"
+                                data-id="{{$media->id}}" data-target="image-container" rel="image" class="preview-image"/>
+                                </div>
+                            @endforeach
+                        </div>
+                        </div>
+                        <div class="block-content block-content-full text-right border-top">
+                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+@endsection
+@section('js_after')
+<script src="/assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/slick-carousel/slick.min.js"></script>
+<script type="text/javascript">
+$('[rel="video"]').click(function(e){
+    var src = $(this).attr('src');
+    console.log(src);
+    var file = $(this).attr('data-file');
+    $('#videoMedia').val(file);
+    $('#imageMedia').val('');
+});
+$('[rel="image"]').click(function(e){
+    var src = $(this).attr('src');
+    console.log(src);
+    var file = $(this).attr('data-file');
+    $('#imageMedia').val(file);
+    $('#videoMedia').val('');
+
+});
+</script>
 @endsection

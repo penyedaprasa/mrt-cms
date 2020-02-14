@@ -130,7 +130,7 @@ class BannerTextController extends Controller
         try {
             $data->fill($input)->save();
             DB::commit();
-            toast()->success('Data berhasil input', $this->title);
+            toast()->success('Data berhasil di update', $this->title);
             return redirect()->route($this->view . '.index');
         } catch (\Exception $e) {
             toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);

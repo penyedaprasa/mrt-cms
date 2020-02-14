@@ -65,23 +65,23 @@
                     </form>
                 </div>
                 </div>
-                
+
             </div>
             <div class="col-md-6">
             <h3 class="block-title">Preview</h3>
             <div class="preview-page">
                 <div class="banner-text"><marquee id="banner_text_here">BANNER HERE</marquee></div>
-                
+
                 <div class="video-container">
                 <video id="video_player" controls poster="{{ url('/media/icon_video.png')}}" width="320" height="240" playsinline>
                 <source src="" type="video/mp4">
-                </video>      
-                </div>        
-                
+                </video>
+                </div>
+
                 <div class="image-container" >
-                        
-                </div>        
-                </div>        
+
+                </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
                             <div class="row">
                             @foreach($videos as $media)
                             <div class="col-md-4">
-                            
+
                             <img src="{{url('/storage/'.$media->thumbnail)}}" data-file="{{$media->filename}}"
                             data-id="{{$media->id}}" data-target="" rel="video" class="preview-image"/>
                             </div>
@@ -111,43 +111,43 @@
                         </div>
                         <div class="block-content block-content-full text-right border-top">
                             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
     </div>
     <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="modal-block-fromleft" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-fromleft" role="document">
-                <div class="modal-content">
-                    <div class="block block-themed block-transparent mb-0">
-                        <div class="block-header bg-primary-dark">
-                            <h3 class="block-title">Choose Image</h3>
-                            <div class="block-options">
-                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                                    <i class="fa fa-fw fa-times"></i>
-                                </button>
-                            </div>
+        <div class="modal-dialog modal-dialog-fromleft" role="document">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">Choose Image</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-fw fa-times"></i>
+                            </button>
                         </div>
-                        <div class="block-content font-size-sm">
-                            <div class="row">
-                            @foreach($images as $media)
-                            <div class="col-md-4">
-                            <img src="{{url('/storage/'.$media->filename)}}"  data-file="{{$media->filename}}"
-                            data-id="{{$media->id}}" data-target="image-container" rel="image" class="preview-image"/>
-                            
-                            </div>
-                            @endforeach
+                    </div>
+                    <div class="block-content font-size-sm">
+                        <div class="row">
+                        @foreach($images as $media)
+                        <div class="col-md-4">
+                        <img src="{{url('/storage/'.$media->filename)}}"  data-file="{{$media->filename}}"
+                        data-id="{{$media->id}}" data-target="image-container" rel="image" class="preview-image"/>
+
                         </div>
-                        </div>
-                        <div class="block-content block-content-full text-right border-top">
-                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-                            
-                        </div>
+                        @endforeach
+                    </div>
+                    </div>
+                    <div class="block-content block-content-full text-right border-top">
+                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+
                     </div>
                 </div>
             </div>
-    </div>         
+        </div>
+    </div>
 @endsection
 @section('js_after')
 <script src="/assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
@@ -186,7 +186,7 @@ $('[rel="image"]').click(function(e){
     $('#form_pages').append(html);
 });
 $('#btn_save').click(function(e){
-    
+
     var URL = $('#form_pages').attr('action');
     var formData = $('#form_pages').serialize();
     $.ajax({url: URL, type:'POST', data:formData}).done(function(json){
@@ -195,7 +195,7 @@ $('#btn_save').click(function(e){
         } else {
             One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: json.message});
         }
-        
+
     });
 });
 </script>
