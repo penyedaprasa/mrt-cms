@@ -46,7 +46,7 @@ class BannerTextController extends Controller
         $columns = ['banner', 'valid_until', 'action'];
         $datas = $this->main_model->select(['*']);;
         if ($request->ajax()) {
-            
+
             return Datatables::of($datas)
                 ->addColumn('action', function ($data) {
                     return view($this->view . '.action', compact('data'));

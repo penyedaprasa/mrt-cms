@@ -39,6 +39,7 @@
                 <label for="image">Media</label>
                     <div class="custom-file">
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#video-gallery">Add Media</button>
+                    <label id="mediaFile">{{@$banner->video.''.@$banner->image}}</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -112,6 +113,7 @@ $('[rel="video"]').click(function(e){
     var file = $(this).attr('data-file');
     $('#videoMedia').val(file);
     $('#imageMedia').val('');
+    $('#mediaFile').text(file);
 });
 $('[rel="image"]').click(function(e){
     var src = $(this).attr('src');
@@ -119,7 +121,7 @@ $('[rel="image"]').click(function(e){
     var file = $(this).attr('data-file');
     $('#imageMedia').val(file);
     $('#videoMedia').val('');
-
+    $('#mediaFile').text(file);
 });
 </script>
 @endsection

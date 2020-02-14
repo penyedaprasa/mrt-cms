@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Banner;
+use App\BannerText;
 use App\Media;
 use Illuminate\Http\Request;
 
@@ -110,8 +111,10 @@ class BannerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banner $banner)
+    public function destroy($id)
     {
-        //
+        $page = Banner::find($id);
+        $page->delete();
+        return redirect('dashboard/banner');
     }
 }

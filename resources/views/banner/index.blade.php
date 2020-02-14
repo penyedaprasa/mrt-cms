@@ -51,7 +51,7 @@
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="{{route('banner.edit',$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
-                                    {{-- <a class="btn btn-danger"  href="{{route('banner.remove',$item->id)}}"><i class="fa fa-trash"></i>Remove</a> --}}
+                                    <a class="btn btn-danger"  href="{{route('banner.remove',$item->id)}}"><i class="fa fa-trash"></i>Remove</a>
                                 </div>
                             </td>
                         </tr>

@@ -36,11 +36,12 @@
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" class="form-control"/></div>
                 <div class="form-group">
-                <label for="image">Media</label>
-                    <div class="custom-file">
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#video-gallery">Add Media</button>
+                    <label for="image">Media</label>
+                        <div class="custom-file">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#video-gallery">Add Media</button>
+                        <label id="mediaFile"></label>
+                        </div>
                     </div>
-                </div>
                 <div class="form-group">
                 <label for="url">Url</label>
                 <input type="text" name="url" id="url" class="form-control"/></div>
@@ -115,6 +116,7 @@ $('[rel="video"]').click(function(e){
     var file = $(this).attr('data-file');
     $('#videoMedia').val(file);
     $('#imageMedia').val('');
+    $('#mediaFile').text(file);
 });
 $('[rel="image"]').click(function(e){
     var src = $(this).attr('src');
@@ -122,7 +124,7 @@ $('[rel="image"]').click(function(e){
     var file = $(this).attr('data-file');
     $('#imageMedia').val(file);
     $('#videoMedia').val('');
-
+    $('#mediaFile').text(file);
 });
 </script>
 @endsection

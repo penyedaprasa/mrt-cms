@@ -35,7 +35,7 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::get('/trainroute/remove/{id}','TrainRouteController@remove');
   Route::resource('/banner','BannerController');
   Route::get('/banner/edit/{id}','BannerController@edit');
-  Route::get('/banner/remove/{id}','BannerController@remove');
+  Route::get('/banner/remove/{id}','BannerController@destroy')->name('banner.remove');
   Route::resource('/media','MediaController');
   Route::get('/media/edit/{id}','MediaController@edit');
   Route::get('/media/remove/{id}','MediaController@remove');
