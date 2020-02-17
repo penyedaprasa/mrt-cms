@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\DB;
 class ScheduleController extends Controller {
     public function index($id){
         $station = Station::find($id);
-        $dests = DB::table('v_source_destinations')->where('station_id',$id)->get();
+        $dests = DB::table('v_source_destinations')
+        ->where('station_id',$id)
+        ->orderBy('destination','ASC')->get();
         
         $destinations = array();
         foreach($dests as $dest){
