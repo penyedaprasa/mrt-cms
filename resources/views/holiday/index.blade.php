@@ -2,43 +2,47 @@
 
 @section('content')
     <!-- Hero -->
+
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-sm-fill h3 my-2">Pengaturan Hari Libur</h1>
+            <h1 class="flex-sm-fill h3 my-2">{{$title}}</h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Holiday</li>
-                        <li class="breadcrumb-item">List</li>
-                        <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="{{route('holiday.create')}}">Create</a>
-                        </li>
-                    </ol>
+                   {{ Breadcrumbs::render($view.'.index') }}
                 </nav>
             </div>
        </div>
     </div>
     <!-- END Hero -->
+
     <!-- Page Content -->
     <div class="content">
-        <div class="row">
-        <div class="col-md-12 col-xl-12 col-lg-12">
+        <!-- Dynamic Table Full -->
         <div class="block">
-        <div class="block-body">
-        <table id="holidays" class="table table-stripe">
-<thead> <tr><th>Id</th><th>Judul</th><th>Jenis</th><th>Tanggal</th><th>Enabled</th><th>Action</th></tr>
-</thead><tbody>
-@foreach($holidays as $item) 
-<tr><td>{{$item->id}}</td><td>{{$item->title}}</td><td>{{ucwords($item->jenis)}}</td><td>{{$item->holi_date}}</td>
-<td>{{$item->enabled}}</td><td class="btn-group"><a class="btn btn-primary" 
-href="{{route('holiday.edit',$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
-<a class="btn btn-danger"  href="{{route('holiday.destroy',$item->id)}}"><i class="fa fa-trash"></i>Remove</a></td></tr>
-@endforeach
-</tbody>
-</table>
-</div></div>
+            <div class="block-header">
+                <h3 class="block-title">{{$title}}<small>Table</small></h3>
+            </div>
+            <div class="block-header">
+                <a href="{{route($view.'.create')}}" class="btn btn-success"><i class="fa fa-plus"></i> Add Holiday</a>
+            </div>
+            <div class="block-content">
+                <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
+                <table id="datatable" class="table table-bordered table-striped table-vcenter js-dataTable-full dataTable no-footer">
+                    <thead>
+                        <tr role="row">
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Enabled</th>
+                            <th width='15%'>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
+        <!-- END Dynamic Table Full -->
     </div>
     <!-- END Page Content -->
 @endsection

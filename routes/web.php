@@ -14,7 +14,7 @@
 Route::get('/', 'HomeController@index');
 Route::get('/schedule/{station}', 'HomeController@schedule');
 
-Route::group(['prefix' => 'dashboard'], function () {
+Route::group(['middleware' => 'auth','prefix' => 'dashboard'], function () {
   Route::get('/','DashboardController@index')->name('dashboard.index');
   Route::get('/profile','DashboardController@profile')->name('dashboard.profile');
   Route::get('/setting','DashboardController@setting')->name('dashboard.setting');
@@ -60,7 +60,6 @@ Route::group(['prefix' => 'dashboard'], function () {
   Route::post('/profile/update','UserController@update');
   Route::resource('bannertext', 'BannerTextController');
   Route::resource('holiday', 'HolidayController');
-  Route::get('holiday/remove/{id}', 'HolidayController@remove')->name('holiday.destroy');
 });
 
 Auth::routes();

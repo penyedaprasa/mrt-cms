@@ -19,7 +19,7 @@
         <!-- Dynamic Table Full -->
         <div class="block">
             <div class="block-header">
-                <a href="{{route('bannertext.create')}}">Create Banner Text</a>
+                <a href="{{route('bannertext.create')}}" class="btn btn-success"><i class="fa fa-plus"></i> Banner Text</a>
             </div>
             <div class="block-content">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->

@@ -2,20 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Holiday;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\HolidayRequest;
+
+use App\Holiday;
+
+use App\Helpers\General;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use JsValidator;
+use Illuminate\Support\Facades\View;
+use Yajra\DataTables\Facades\DataTables;
 
 class HolidayController extends Controller
 {
+    private $title;
+    private $model;
+    private $view;
+    private $main_model;
+
+    public function __construct(Holiday $main_model)
+    {
+        $this->title        = "Holiday Management";
+        $this->model        = "Holiday";
+        $this->view         = "holiday";
+        $this->main_model   = $main_model;
+        $this->validate     = 'HolidayRequest';
+        $jenis = ['nasional', 'cuti bersama', 'hari besar agama'];
+
+        View::share('title', $this->title);
+        View::share('model', $this->model);
+        View::share('view', $this->view);
+        View::share('main_model', $this->main_model);
+        View::share('jenis', $jenis);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $holidays = Holiday::orderBy('holi_date','ASC')->get();
-        return view('holiday.index',compact('holidays'));
+        $columns = ['title', 'jenis', 'holi_date', 'enabled', 'action'];
+        if ($request->ajax()) {
+            $datas = $this->main_model->select(["*"]);
+            return Datatables::of($datas)
+                ->addColumn('action', function ($data) {
+                    return view($this->view . '.action', compact('data'));
+                })
+                ->escapeColumns(['actions'])
+                ->make(true);
+        }
+        return view($this->view . '.index')
+            ->with(compact('columns'));
     }
 
     /**
@@ -25,8 +66,8 @@ class HolidayController extends Controller
      */
     public function create()
     {
-        $jenis = array('nasional','cuti bersama','hari besar agama');
-        return view('holiday.create',compact('jenis'));
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.create')->with(compact('validator'));
     }
 
     /**
@@ -35,21 +76,20 @@ class HolidayController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HolidayRequest $request)
     {
-        if(!empty($request->id)){
-            $holidays = Holiday::find($request->id);
-        } else {
-            $holidays = new Holiday();
+        $input = $request->all();
+        DB::beginTransaction();
+        try {
+            $data = $this->main_model->create($input);
+            DB::commit();
+            toast()->success('Data berhasil input', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
         }
-        
-        $holidays->title = $request->title;
-        $holidays->jenis = $request->jenis;
-        $holidays->holi_date = $request->holi_date;
-        $holidays->enabled = $request->enabled;
-        
-        $holidays->save();
-        return redirect('dashboard/holiday');
+        return redirect()->back();
     }
 
     /**
@@ -71,9 +111,9 @@ class HolidayController extends Controller
      */
     public function edit($id)
     {
-        $holiday=Holiday::find($id);
-        $jenis = array('nasional','cuti bersama','hari besar agama');
-        return view('holiday.edit',compact('holiday','jenis'));
+        $data = $this->main_model->findOrFail($id);
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.edit')->with(compact('validator', 'data'));
     }
 
     /**
@@ -83,9 +123,22 @@ class HolidayController extends Controller
      * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Holiday $holiday)
+    public function update(HolidayRequest $request, $id)
     {
-        //
+        $input = $request->all();
+        // dd($input);
+        $data = $this->main_model->findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $data->fill($input)->save();
+            DB::commit();
+            toast()->success('Data berhasil input', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
+            DB::rollback();
+        }
+        return redirect()->back();
     }
 
     /**
@@ -94,13 +147,19 @@ class HolidayController extends Controller
      * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
-    public function remove($id)
+    public function destroy($id)
     {
-        if(!empty($id)){
-            $holiday = Holiday::find($id);
-            $holiday->delete();
-
+        DB::beginTransaction();
+        try {
+            $data = $this->main_model->findOrFail($id);
+            $data->delete();
+            DB::commit();
+            toast()->success('Data berhasil di hapus', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            DB::rollback();
         }
-        return redirect('dashboard/holiday');
+        toast()->error('Terjadi Kesalahan', $this->title);
+        return redirect()->back();
     }
 }

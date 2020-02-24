@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Hero -->
-    <div class="bg-body-light">
+    {{-- <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
                 <h1 class="flex-sm-fill h3 my-2">Station</h1>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="block-content">
                 <form action="{{route('station.store')}}" method="POST" enctype="multipart/form-data">
-                @csrf 
+                @csrf
                 <input type="hidden" name="id" value="{{$station->id}}"/>
 
                 <div class="form-group">
@@ -60,7 +60,7 @@
                 <input type="text" name="time_open" id="time_open" class="form-control" value="{{$station->time_open}}"/></div>
                 <div class="form-group">
                 <label for="time_close">Time Close</label>
-                <input type="text" name="time_close" id="time_close" class="form-control" 
+                <input type="text" name="time_close" id="time_close" class="form-control"
                 value="{{$station->time_close}}"/></div>
                 <div class="form-group">
                 <label for="lanes">Lanes Count</label>
@@ -73,10 +73,10 @@
                 <div class="form-group">
                 <label for="time_close">Status</label>
                 {!! Helper::create_radio('status',['close','open'],'open') !!}
-                
+
                 </div>
                 <div class="form-group">
-                
+
                 <button type="submit" class="btn btn-primary">Update Station</button>
                 </div>
                 </form>
@@ -84,6 +84,33 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- END Page Content -->
+    <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+                <h1 class="flex-sm-fill h3 my-2">{{$title}}</h1>
+                <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                    {{ Breadcrumbs::render('train.edit',$data) }}
+                </nav>
+            </div>
+       </div>
+    </div>
+    <!-- END Hero -->
+
+    <!-- Page Content -->
+    <div class="content">
+        <form action="{{ route($view.'.update', $data->id)}}" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            {{ method_field('PUT')}}
+            @include($view.'.field')
+            <div class="block">
+                <div class="row items-push">
+                    <div class="col-lg-8">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
