@@ -108,5 +108,22 @@ Breadcrumbs::for('home', function ($trail) {
         $trail->push('Edit', route('holiday.edit', $data->id));
     });
 
+// Home > Route
+    // index
+    Breadcrumbs::for('page.index', function ($trail) {
+        $trail->parent('home');
+        $trail->push('page', route('page.index'));
+    });
+    // create
+    Breadcrumbs::for('page.create', function ($trail) {
+        $trail->parent('page.index');
+        $trail->push('Create', route('page.create'));
+    });
+    // edit
+    Breadcrumbs::for('page.edit', function ($trail, $data) {
+        $trail->parent('page.index');
+        $trail->push('Edit', route('page.edit', $data->id));
+    });
+
 
 

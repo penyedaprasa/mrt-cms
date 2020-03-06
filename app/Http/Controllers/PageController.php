@@ -2,25 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use App\Http\Requests\PageRequest;
+
 use App\Page;
 use App\Media;
 use App\PageImage;
 use App\PageVideo;
-use Validator;
-use Illuminate\Http\Request;
+
+use App\Helpers\General;
 use Illuminate\Support\Facades\DB;
+use JsValidator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+use Yajra\DataTables\Facades\DataTables;
 
 class PageController extends Controller
 {
+    private $title;
+    private $model;
+    private $view;
+    private $main_model;
+
+    public function __construct(Page $main_model)
+    {
+        $this->title        = "Digital Signage Page Management";
+        $this->model        = "Page";
+        $this->view         = "page";
+        $this->main_model   = $main_model;
+        $this->validate     = 'PageRequest';
+
+        View::share('title', $this->title);
+        View::share('model', $this->model);
+        View::share('view', $this->view);
+        View::share('main_model', $this->main_model);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pages = Page::all();
-        return view('page.index',compact('pages'));
+        $columns = ['title', 'banner_text', 'time_visible', 'date_visible','action'];
+        if ($request->ajax()) {
+            $datas = $this->main_model->select(['*']);;
+            return Datatables::of($datas)
+                ->addColumn('action', function ($data) {
+                    return view($this->view . '.action', compact('data'));
+                })
+                ->escapeColumns(['action'])
+                ->make(true);
+        }
+        return view($this->view . '.index')
+            ->with(compact('columns'));
     }
 
     /**
@@ -69,7 +107,7 @@ class PageController extends Controller
                     $pvideo->page_id=$pages->id;
                     $pvideo->video_url=$video;
                 }
-                
+
                 $pvideo->list_order = $i;
                 $pvideo->save();
                 $i++;
@@ -85,15 +123,15 @@ class PageController extends Controller
                     $pimage->page_id=$pages->id;
                     $pimage->image_url=$image;
                 }
-                
+
                 $pimage->list_order = $i;
                 $pimage->save();
                 $i++;
             }
             }
-            
+
             $msg = array('status'=>true,'message'=>'Update Halaman Sukses!','page'=>$pages);
-        }    
+        }
         return response()->json($msg);
     }
 
