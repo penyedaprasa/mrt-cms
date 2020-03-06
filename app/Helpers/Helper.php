@@ -11,17 +11,16 @@ class Helper {
     $html ="<div class=\"form-check\" id=\"$key\">";
     foreach($options as $option) {
       if($option==$value){
-        $html.='<div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="radio_'.$option.'" name="'.$key.'" value="'.$option.'" checked>
-        <label class="form-check-label" for="radio_'.$option.'">'.strtoupper($option).'</label>
-    </div>';
+        $html.= '<div class="custom-control custom-radio custom-control-inline custom-control-lg">
+        <input type="radio" class="custom-control-input" id="radio_' . $option . '" name="' . $key . '" value="' . $option . '" checked>
+        <label class="custom-control-label" for="radio_' . $option . '"> ' . strtoupper($option) . '</label>
+        </div>';
       } else {
-        $html.='<div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="radio_'.$option.'" name="'.$key.'" value="'.$option.'">
-        <label class="form-check-label" for="radio_'.$option.'">'.strtoupper($option).'</label>
-    </div>';
+        $html .= '<div class="custom-control custom-radio custom-control-inline custom-control-lg">
+        <input type="radio" class="custom-control-input" id="radio_' . $option . '" name="' . $key . '" value="' . $option . '">
+        <label class="custom-control-label" for="radio_' . $option . '"> ' . strtoupper($option) . '</label>
+        </div>';
       }
-
     }
     return $html."</div>";
   }
@@ -73,7 +72,7 @@ class Helper {
       } else {
         return '';
       }
-      
+
   }
   public static function privilege_value($menuid,$roleid,$field){
     $priv = RolePrivilege::where('menu_id',$menuid)
@@ -95,14 +94,14 @@ class Helper {
       }
     } else {
       return 'N';
-    } 
+    }
   }
   public static function getMinutes($train,$source,$destination,$hour){
       $minutes = TrainSchedule::where('station_id',$source)
               ->where('destination',$destination)
               ->where('train_id',$train)
               ->where('departure_hour',$hour)->get();
-      return $minutes;        
+      return $minutes;
   }
   public static function getDestinationCount($stationid){
     $count = DB::table('v_source_destinations')->where('station_id',$stationid)->count();

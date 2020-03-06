@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Hero -->
-    <div class="bg-body-light">
+    {{-- <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
                 <h1 class="flex-sm-fill h3 my-2">Station</h1>
@@ -16,11 +16,11 @@
                 </nav>
             </div>
        </div>
-    </div>
+    </div> --}}
     <!-- END Hero -->
 
     <!-- Page Content -->
-    <div class="content">
+    {{-- <div class="content">
         <div class="row ">
             <div class="col-md-8 col-xl-8">
             <div class="block">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="block-content">
                 <form action="{{route('station.store')}}" method="POST" enctype="multipart/form-data">
-                @csrf 
+                @csrf
                 <div class="form-group">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="name" id="name" value="" class="form-control"/>
@@ -54,12 +54,12 @@
                 </div>
                 <div class="form-group">
                 <label for="time_open">Time Open</label>
-                <input type="text" name="time_open" id="time_open" class="js-flatpickr form-control" 
-                data-enable-time="true" data-no-calendar="true" data-date-format="H:i" 
+                <input type="text" name="time_open" id="time_open" class="js-flatpickr form-control"
+                data-enable-time="true" data-no-calendar="true" data-date-format="H:i"
                 data-time_24hr="true" value="05:00"/></div>
                 <div class="form-group">
                 <label for="time_close">Time Close</label>
-                <input type="text" name="time_close" id="time_close" class="js-flatpickr form-control" 
+                <input type="text" name="time_close" id="time_close" class="js-flatpickr form-control"
                 data-enable-time="true" data-no-calendar="true" data-date-format="H:i" data-time_24hr="true"
                 value="23:00"/></div>
                 <div class="form-group">
@@ -73,10 +73,10 @@
                 <div class="form-group">
                 <label for="time_close">Status</label>
                 {!! Helper::create_radio('status',['close','open'],'open') !!}
-                
+
                 </div>
                 <div class="form-group">
-                
+
                 <button type="submit" class="btn btn-primary">Add Station</button>
                 </div>
                 </form>
@@ -84,9 +84,36 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+    <!-- END Page Content -->
+     <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+                <h1 class="flex-sm-fill h3 my-2">{{$title}}</h1>
+                <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                    {{ Breadcrumbs::render('station.create') }}
+                </nav>
+            </div>
+       </div>
+    </div>
+    <!-- END Hero -->
+
+    <!-- Page Content -->
+    <div class="content">
+        <form action="{{ route($view.'.store')}}" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            @include($view.'.field')
+            <div class="block">
+                <div class="row items-push">
+                    <div class="col-lg-8">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <!-- END Page Content -->
 @endsection
-@section('js_after')
+{{-- @section('js_after')
 <script>jQuery(function(){ One.helpers(['flatpickr', 'datepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider']); });</script>
-@endsection
+@endsection --}}

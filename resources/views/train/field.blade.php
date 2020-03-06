@@ -61,6 +61,7 @@
 @section('js_after')
 <script>
 function readURL(input) {
+    $('#train-image-show').attr('src', e.target.result);
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 

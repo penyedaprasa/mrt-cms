@@ -2,22 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use App\Banner;
-use App\BannerText;
-use App\Media;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\BannerRequest;
+
+use App\Banner;
+use App\Media;
+
+use Illuminate\Support\Facades\DB;
+use JsValidator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class BannerController extends Controller
 {
+    private $title;
+    private $model;
+    private $view;
+    private $main_model;
+
+    public function __construct(Banner $main_model)
+    {
+        $this->title        = "Banner";
+        $this->model        = "Banner";
+        $this->view         = "banner";
+        $this->main_model   = $main_model;
+        $this->validate     = 'BannerRequest';
+        $videos = Media::where('mmtype', 'like', 'video%')->get();
+        $images = Media::where('mmtype', 'like', 'image%')->get();
+
+        View::share('title', $this->title);
+        View::share('model', $this->model);
+        View::share('view', $this->view);
+        View::share('main_model', $this->main_model);
+        View::share('videos', $videos);
+        View::share('images', $images);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $banners = Banner::all();
-        return view('banner.index',compact('banners'));
+        $columns = ['name', 'url', 'source', 'visible', 'action'];
+        $datas = $this->main_model->select(['*']);;
+        if ($request->ajax()) {
+            return Datatables::of($datas)
+                ->addColumn('action', function ($data) {
+                    return view($this->view . '.action', compact('data'));
+                })
+                ->addColumn('source', function ($data) {
+                    if($data->image != null){
+                        return '<img src=' . url('storage/' . $data->image) . ' height="75">';
+                    }else{
+                        return "<video width='150' controls><source src=".url('storage/' . $data->video)." type='video/mp4'>Your browser does not support HTML5 video.</video>";
+                    }
+                })
+                ->escapeColumns(['action'])
+                ->make(true);
+        }
+        return view($this->view . '.index')
+            ->with(compact('datas', 'columns'));
     }
 
     /**
@@ -27,9 +76,8 @@ class BannerController extends Controller
      */
     public function create()
     {
-        $videos = Media::where('mmtype', 'like', 'video%')->get();
-        $images = Media::where('mmtype', 'like', 'image%')->get();
-        return view('banner.create')->with(compact('videos','images'));
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.create')->with(compact('validator'));
     }
 
     /**
@@ -38,34 +86,22 @@ class BannerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BannerRequest $request)
     {
-
-        $banners = Banner::where('name',$request->name)->first();
-        if(empty($banners)){
-            $banners = new Banner();
-            $banners->name = $request->name;
+        $input = $request->all();
+        DB::beginTransaction();
+        try {
+            $data = $this->main_model->create($input);
+            DB::commit();
+            toast()->success('Data berhasil input', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
         }
-
-        // if($request->file('image')){
-        //     $path = $request->file('image')->store('public/images');
-        //     $filename='images/'.basename($path);
-        //     $banners->image=$filename;
-        // }
-        // if($request->file('video')){
-        //     $path = $request->file('video')->store('public/videos');
-        //     $filename='videos/'.basename($path);
-        //     $banners->video=$filename;
-
-        // }
-        $banners->image = $request->image;
-        $banners->video = $request->video;
-        $banners->url = $request->url;
-        $banners->visible = $request->visible;
-
-        $banners->save();
-        return redirect('dashboard/banner');
+        return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.
@@ -86,11 +122,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
-        $banner = Banner::find($id);
-        $videos = Media::where('mmtype', 'like', 'video%')->get();
-        $images = Media::where('mmtype', 'like', 'image%')->get();
-        return view('banner.edit')->with(compact('banner','videos','images'));
+        $data = $this->main_model->findOrFail($id);
+        $validator = JsValidator::formRequest('App\Http\Requests\\' . $this->validate);
+        return view($this->view . '.edit')->with(compact('validator', 'data'));
     }
 
     /**
@@ -100,9 +134,21 @@ class BannerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Banner $banner)
+    public function update(BannerRequest $request, $id)
     {
-        //
+        $input = $request->all();
+        $data = $this->main_model->findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $data->fill($input)->save();
+            DB::commit();
+            toast()->success('Data berhasil di update', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            toast()->error('Terjadi Kesalahan' . $e->getMessage(), $this->title);
+            DB::rollback();
+        }
+        return redirect()->back();
     }
 
     /**
@@ -113,8 +159,17 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        $page = Banner::find($id);
-        $page->delete();
-        return redirect('dashboard/banner');
+        $data = $this->main_model->findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $data->delete();
+            DB::commit();
+            toast()->success('Data berhasil di hapus', $this->title);
+            return redirect()->route($this->view . '.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+        toast()->error('Terjadi Kesalahan', $this->title);
+        return redirect()->back();
     }
 }

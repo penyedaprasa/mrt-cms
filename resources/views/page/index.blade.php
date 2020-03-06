@@ -2,17 +2,13 @@
 
 @section('content')
     <!-- Hero -->
+
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-sm-fill h3 my-2">Digital Signage Page</h1>
+            <h1 class="flex-sm-fill h3 my-2">{{$title}}</h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Page</li>
-                        <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="{{route('page.create')}}">Create</a>
-                        </li>
-                    </ol>
+                   {{ Breadcrumbs::render($view.'.index') }}
                 </nav>
             </div>
        </div>
@@ -21,44 +17,32 @@
 
     <!-- Page Content -->
     <div class="content">
-        <div class="row">
-            <div class="col-md-12 col-xl-12">
-            <div class="block">
-                <div class="block-header">
-                <h3 class="block-title">Page List</h3>
-                </div>
-                <div class="block-content">
-                <table id="pages" class="table table-stripe">
+        <!-- Dynamic Table Full -->
+        <div class="block">
+            <div class="block-header">
+                <h3 class="block-title">{{$title}}<small>Table</small></h3>
+            </div>
+            <div class="block-header">
+            <a href="{{route($view.'.create')}}" class="btn btn-success"><i class="fa fa-plus"></i> Add {{$model}}</a>
+            </div>
+            <div class="block-content">
+                <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
+                <table id="datatable" class="table table-bordered table-striped table-vcenter js-dataTable-full dataTable no-footer">
                     <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Banner_text</th>
-                            <th>Time</th>
-                            <th>Date</th>
-                            <th>Action</th>
+                        <tr role="row">
+                            <th>TITLE</th>
+                            <th>BANNER TEXT</th>
+                            <th>TIME VISIBLE</th>
+                            <th>DATE VISIBLE</th>
+                            <th width='15%'>action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($pages as $item)
-                    <tr>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->title}}</td>
-                        <td>{{$item->banner_text}}</td>
-                        <td>{{$item->time_visible}}</td>
-                        <td>{{$item->date_visible}}</td>
-                        <td class="btn-group">
-                            <a class="btn btn-primary" href="{{route('page.edit',$item->id)}}"><i class="fa fa-edit"></i>Edit</a>
-                            <a class="btn btn-danger"  href="{{route('page.remove',$item->id)}}"><i class="fa fa-trash"></i>Remove</a>
-                        </td>
-                    </tr>
-                    @endforeach
                     </tbody>
-                    </table>
-                </div>
-                </div>
+                </table>
             </div>
         </div>
+        <!-- END Dynamic Table Full -->
     </div>
     <!-- END Page Content -->
 @endsection

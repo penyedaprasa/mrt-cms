@@ -56,7 +56,7 @@
                     <div class="py-3">
                     <div class="form-group row justify-content-center mb-0">
                     <div class="col-md-12 col-xl-12">
-                    <button type="button" id="btn_save" class="btn btn-block btn-primary">
+                    <button type="submit"  class="btn btn-block btn-primary">
                     <i class="fa fa-fw fa-save mr-1"></i> Add Page
                     </button>
                     </div>
@@ -135,14 +135,12 @@
                         <div class="col-md-4">
                         <img src="{{url('/storage/'.$media->filename)}}"  data-file="{{$media->filename}}"
                         data-id="{{$media->id}}" data-target="image-container" rel="image" class="preview-image"/>
-
                         </div>
                         @endforeach
                     </div>
                     </div>
                     <div class="block-content block-content-full text-right border-top">
                         <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-
                     </div>
                 </div>
             </div>
@@ -189,6 +187,7 @@ $('#btn_save').click(function(e){
 
     var URL = $('#form_pages').attr('action');
     var formData = $('#form_pages').serialize();
+    console.log(formData);
     $.ajax({url: URL, type:'POST', data:formData}).done(function(json){
         if(json.status){
             One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: json.message});
