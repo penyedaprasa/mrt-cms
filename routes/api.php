@@ -25,3 +25,7 @@ Route::get('/schedule/{station}/hour/{hour}','API\ScheduleController@hours');
 Route::get('/page/index','API\PageController@index');
 Route::get('/page/media/{id}','API\PageController@media');
 Route::get('/holiday','API\HolidayController@index');
+
+Route::get('/monitor','API\DigitalController@index');
+Route::get('/monitor/add','API\DigitalController@add');
+Route::get('/monitor/get/hit','API\DigitalController@menu_now');
