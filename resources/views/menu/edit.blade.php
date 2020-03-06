@@ -75,7 +75,7 @@
         </div>
             <div class="form-group">
             <label for="action_url">Action URL</label>
-            <input type="text" name="action_url" id="action_url" class="form-control"  value="{{$menu->action_text}}"/>
+            <input type="text" name="action_url" id="action_url" class="form-control"  value="{{$menu->action_url}}"/>
         </div>
             <div class="form-check form-check-inline">
                 <label for="enabled1" class="form-check-label">Visible : </label>

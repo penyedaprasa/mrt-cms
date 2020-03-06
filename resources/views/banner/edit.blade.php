@@ -5,10 +5,10 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-sm-fill h3 my-2">Create</h1>
+                <h1 class="flex-sm-fill h3 my-2">Update Banner</h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Create</li>
+                        <li class="breadcrumb-item">Update</li>
                         <li class="breadcrumb-item" aria-current="page">
                             <a class="link-fx" href="{{route('banner.index')}}">Banner</a>
                         </li>
@@ -30,6 +30,7 @@
                 <div class="block-content">
                 <form id="form_banners" class="form" role="form" action="{{route('banner.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="id" value="{{@$banner->id}}"/>
                 <input type="hidden" id="videoMedia" name="video" value="{{@$banner->video}}"/>
                 <input type="hidden" id="imageMedia" name="image" value="{{@$banner->image}}"/>
                 <div class="form-group">

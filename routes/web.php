@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/page/{id}', 'HomeController@page');
 Route::get('/schedule/{station}', 'HomeController@schedule');
 
 Route::group(['prefix' => 'dashboard'], function () {

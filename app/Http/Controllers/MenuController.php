@@ -48,11 +48,15 @@ class MenuController extends Controller
                 $menus->title = $request->title;
             }
         }
-        
-        $menus->icon=$request->icon;
-        $menus->image=$request->image;
-        $menus->video=$request->video;      
-        
+        if(!empty($request->icon)){
+            $menus->icon=$request->icon;
+        }
+        if(!empty($request->image)){
+            $menus->image=$request->image;
+        }
+        if(!empty($request->video)){
+            $menus->video=$request->video;      
+        }
         $menus->action_text = $request->action_text;
         $menus->action_url = $request->action_url;
         $menus->visible = $request->visible;
