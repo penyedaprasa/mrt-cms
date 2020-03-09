@@ -30,7 +30,7 @@
         <!-- Fonts and OneUI framework -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
         <!-- <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}"> -->
-        <link rel="stylesheet" id="css-main" href="/assets/css/oneui.min.css">
+        <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/oneui.min.css') }}">
         <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/amethyst.min.css"> -->
         <!-- END Stylesheets -->
@@ -69,13 +69,13 @@
             </main>
             <!-- END Main Container -->
         </div>
-        <script src="/assets/js/oneui.core.min.js"></script>
-        <script src="/assets/js/oneui.app.min.js"></script>
+        <script src="{{ asset('assets/js/oneui.core.min.js') }}"></script>
+        <script src="{{ asset('assets/js/oneui.app.min.js') }}"></script>
 
         <!-- Page JS Plugins -->
-        <script src="/assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="{{ asset('assets/js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 
         <!-- Page JS Code -->
-        <script src="/assets/js/pages/op_auth_signin.min.js"></script>
+        <script src="{{ asset('assets/js/pages/op_auth_signin.min.js') }}"></script>
     </body>
 </html>

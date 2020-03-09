@@ -17,6 +17,7 @@ Route::get('/schedule/{station}', 'HomeController@schedule');
 
 Route::group(['middleware' => 'auth','prefix' => 'dashboard'], function () {
   Route::get('/','DashboardController@index')->name('dashboard.index');
+  Route::get('/show/{id}','DashboardController@dashboard_show')->name('dashboard.show');
   Route::get('/profile','DashboardController@profile')->name('dashboard.profile');
   Route::get('/setting','DashboardController@setting')->name('dashboard.setting');
   Route::get('/account_lock','DashboardController@account_lock')->name('dashboard.account_lock');

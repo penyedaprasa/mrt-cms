@@ -10,25 +10,90 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+// use DB;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Controllers\Controller;
+use App\Station;
+use App\Dashboard;
+use App\Helpers\General;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
+use JsValidator;
+
 class DashboardController extends Controller
-{
+{   
+    private $title;
+    private $model;
+    private $view;
+    private $main_model;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+
+    public function __construct(Dashboard $main_model)
     {
-        $this->middleware('auth');
+        $this->title        = "Dashboard";
+        $this->model        = "Dashboard";
+        $this->view         = "dashboard";
+        $this->main_model   = $main_model;
+        $this->validate     = 'DashboardRequest';
+
+        View::share('title', $this->title);
+        View::share('model', $this->model);
+        View::share('view', $this->view);
+        View::share('main_model', $this->main_model);
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.index');
+        $title = "Dashboard";      
+        $columns = ['digital_id', 
+        'stations_name', 
+        'stations_status', 
+        'digital_created_at',
+        'digital_status', 
+        'digital_hit_now'
+        ];
+
+        if ($request->ajax()) {
+            $datas = $this->main_model->select(["*"]);
+            
+            return Datatables::of($datas)
+                ->addColumn('digital_status', function ($data) {
+                    return view($this->view . '.digital_status', compact('data'));
+                })
+                // ->addColumn('image', function ($data) {
+                //     return '<img src=' . url('storage/' . $data->image) . ' height="75">';
+                // })
+                // ->addColumn('time', function ($data) {
+                //     return 'Open : '.$data->time_open.'-'. $data->time_close;
+                // })
+                ->addColumn('digital_hit_now', function($data) {
+                    return view($this->view . '.show', compact('data'));
+                })
+                ->escapeColumns(['actions'])
+                ->make(true);
+        }
+        return view($this->view . '.index')->with(compact('columns', 'title'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard_show($id)
+    {
+        dd($id);
     }
 
     /**

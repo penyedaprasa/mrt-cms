@@ -21,17 +21,17 @@
         <!-- Fonts and Styles -->
         @yield('css_before')
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
-        <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
-        <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}">
+        <link rel="stylesheet" id="css-main" href="{{ asset('css/oneui.css') }}">
+        <link rel="stylesheet" id="css-theme" href="{{ asset('css/themes/amethyst.css') }}">
         {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> --}}
-        <link rel="stylesheet" href="/assets/js/plugins/datatables/dataTables.bootstrap4.css">
-        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
-        <link rel="stylesheet" href="/assets/js/plugins/dropzone/dist/min/dropzone.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/flatpickr/flatpickr.min.css">
-        <link rel="stylesheet" href="/css/custom.css">
+        <link rel="stylesheet" href="{{ asset('js/plugins/datatables/dataTables.bootstrap4.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/plugins/select2/css/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/plugins/dropzone/dist/min/dropzone.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
         @yield('css_after')
@@ -81,7 +81,7 @@
                 <!-- Side Header -->
                 <div class="content-header bg-white-5">
                     <!-- Logo -->
-                    <a class="font-w600 text-dual" href="/">
+                    <a class="font-w600 text-dual" href="{{ url('/dashboard') }}">
                         <i class="fa fa-circle-notch text-primary"></i>
                         <span class="smini-hide">
                             <span class="font-w700 font-size-h5">MRT</span> <span class="font-w400">1.0</span>
@@ -110,7 +110,7 @@
                 <div class="content-side content-side-full">
                     <ul class="nav-main">
                         <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                            <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="{{ url('/dashboard') }}">
                                 <i class="nav-main-link-icon si si-speedometer"></i>
                                 <span class="nav-main-link-name">Dashboard</span>
                             </a>
@@ -422,19 +422,19 @@
         <!-- END Page Container -->
 
         <!-- OneUI Core JS -->
-         <script src="/assets/js/oneui.core.min.js"></script>
+         <script src="{{ asset('assets/js/oneui.core.min.js') }}"></script>
 
         <!-- Laravel Scaffolding JS -->
-        <script src="/assets/js/oneui.app.min.js"></script>
+        <script src="{{ asset('assets/js/oneui.app.min.js') }}"></script>
 
-        <script src="/assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-        <script src="/assets/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-        <script src="/assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-        <script src="/assets/js/plugins/select2/js/select2.full.min.js"></script>
-        <script src="/assets/js/plugins/jquery.maskedinput/jquery.maskedinput.min.js"></script>
-        <script src="/assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-        <script src="/assets/js/plugins/dropzone/dropzone.min.js"></script>
-        <script src="/assets/js/plugins/flatpickr/flatpickr.min.js"></script>
+        <script src="{{ asset('assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/select2/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/jquery.maskedinput/jquery.maskedinput.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/dropzone/dropzone.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
         <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="{{url('/js')}}/plugins/datatables/dataTables.bootstrap4.min.js"></script>
         {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script> --}}

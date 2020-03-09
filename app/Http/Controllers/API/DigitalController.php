@@ -27,7 +27,8 @@ class DigitalController extends Controller
 				digital_monitoring.created_at AS digital_created_at,
 				(SELECT TIMESTAMPDIFF(MINUTE, (SELECT created_at FROM digital_monitoring WHERE id = digital_id), NOW())) AS diff,
 				(SELECT IF(diff>5,"OFF","ON")) AS digital_status,
-				(SELECT menus.title AS menus_name FROM menus LEFT JOIN digital_monitoring_hit_now ON digital_monitoring_hit_now.id_menus = menus.id WHERE digital_monitoring_hit_now.created_at IN ( SELECT MAX( created_at ) FROM digital_monitoring_hit_now GROUP BY digital_monitoring_hit_now.id_stations) AND digital_monitoring_hit_now.id_stations = digital_id_stations) AS digital_hit_now
+				-- (SELECT menus.title AS menus_name FROM menus LEFT JOIN digital_monitoring_hit_now ON digital_monitoring_hit_now.id_menus = menus.id WHERE digital_monitoring_hit_now.created_at IN ( SELECT MAX( created_at ) FROM digital_monitoring_hit_now GROUP BY digital_monitoring_hit_now.id_stations) AND digital_monitoring_hit_now.id_stations = digital_id_stations) AS digital_hit_now
+				(select tampilan_sekarang FROM digital_monitoring_hit_now WHERE id_stations = digital_id_stations) AS digital_hit_now
 			FROM
 				digital_monitoring
 				LEFT JOIN stations ON digital_monitoring.id_stations = stations.id 
@@ -57,11 +58,11 @@ class DigitalController extends Controller
 
 	public function menu_now(Request $request){
 		$id_stations = $request->input('id_stations');
-		$id_menus = $request->input('id_menus');
+		$tampilan_sekarang = $request->input('tampilan_sekarang'); //gambar terus simpen di screenshoot rename jadi id_stasiun sama tgl
 		if($request->all()){
 			$data_monitor_hit_now = array(
 				'id_stations' => $id_stations,
-				'id_menus' => $id_menus
+				'tampilan_sekarang' => $tampilan_sekarang 
 			);
 
 			DB::table('digital_monitoring_hit_now')->insert($data_monitor_hit_now);
